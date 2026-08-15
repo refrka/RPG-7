@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://db7yd5o3ud6xa"]
+
+[ext_resource type="Script" uid="uid://bsvdhbx2qw4v5" path="res://game_root.gd" id="1_xj5yv"]
+[ext_resource type="PackedScene" uid="uid://cm1fopda60wcy" path="res://ui/main_menu.tscn" id="2_pjpa4"]
+
+[node name="GameRoot" type="Node" unique_id=1932182506]
+script = ExtResource("1_xj5yv")
+
+[node name="MainMenuCanvas" type="CanvasLayer" parent="." unique_id=1467062240]
+
+[node name="MainMenu" parent="MainMenuCanvas" unique_id=1920163654 instance=ExtResource("2_pjpa4")]
+
+[node name="GameCanvas" type="CanvasLayer" parent="." unique_id=716293646]
+
+[node name="WorldRoot" type="Node2D" parent="GameCanvas" unique_id=1319847095 groups=["world_root"]]
