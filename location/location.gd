@@ -45,8 +45,28 @@ func _populate() -> void:
 
 
 
+	
 
 
+
+
+func add_entity_node(entity_node: EntityNode, target_pos: Vector2) -> void:
+
+	if entity_node.get_parent() != null:
+
+		entity_node.get_parent().remove_child(entity_node)
+
+	_add_entity_to_root(entity_node)
+
+	entity_node.global_position = target_pos
+
+	if active:
+
+		entity_node._activate()
+
+	else:
+
+		entity_node._deactivate()
 
 
 
@@ -116,6 +136,19 @@ func get_all_entity_nodes() -> Array[EntityNode]:
 
 
 
+func _add_entity_to_root(entity_node: EntityNode) -> void:
+
+	var root: Node2D = null
+
+	if entity_node is CharacterNode:
+
+		root = character_root
+
+	elif entity_node is ObjectNode:
+
+		root = object_root
+
+	root.add_child(entity_node)
 
 
 

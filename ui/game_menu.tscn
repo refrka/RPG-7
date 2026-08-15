@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dgn0m8cl45ca3" path="res://ui/game_menu.gd" id="1_3ptas"]
 
-[node name="GameMenu" type="Control" unique_id=461689470 groups=["game_menu"]]
+[node name="GameMenu" type="Control" unique_id=461689470 node_paths=PackedStringArray("resume_button", "return_button", "quit_button") groups=["game_menu"]]
+process_mode = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,6 +12,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_3ptas")
+resume_button = NodePath("MarginContainer/PanelContainer/VBoxContainer/ResumeButton")
+return_button = NodePath("MarginContainer/PanelContainer/VBoxContainer/ReturnButton")
+quit_button = NodePath("MarginContainer/PanelContainer/VBoxContainer/QuitButton")
+pause_game = true
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1097373882]
 layout_mode = 1

@@ -15,11 +15,13 @@ enum GameState {
 
 var state: GameState
 
+var paused:= false
+
 var last_save_dict:= {}
 
 
 
-var player: CharacterNode
+var player: Player
 
 
 
@@ -28,7 +30,11 @@ var player: CharacterNode
 
 func _ready() -> void:
 
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
 	last_save_dict = load_save()
+
+	hold_player()
 
 
 
@@ -40,7 +46,11 @@ func start() -> void:
 
 		new_save()
 
-	Scenes.load_location(last_save_dict["saved_location_id"])
+	var location = Scenes.load_location(last_save_dict["saved_location_id"])
+
+	var spawn_point_pos = location.get_spawn_point_position(last_save_dict["saved_spawn_id"])
+
+	location.add_entity_node(player, spawn_point_pos)
 
 	_change_state(GameState.ACTIVE)
 
@@ -49,13 +59,21 @@ func start() -> void:
 
 
 
-func quit() -> void:
+func exit() -> void:
 
 	last_save_dict = {}
 
 	Scenes.load_main_menu()
 
 	_change_state(GameState.MAIN_MENU)
+
+
+
+
+
+func quit() -> void:
+
+	get_tree().quit()
 
 
 
@@ -123,11 +141,59 @@ func reset() -> void:
 
 
 
+
+
+func pause() -> void:
+
+	get_tree().paused = true
+
+	paused = true
+
+
+
+
+func resume() -> void:
+
+	get_tree().paused = false
+
+	paused = false
+
+
+
+
+
+func hold_player() -> void:
+
+	get_player()
+
+	if !player.is_inside_tree():
+
+		add_child(player)
+
+	else:
+
+		player.reparent(self)
+
+	player.global_position = Vector2.ZERO
+
+	player._deactivate()
+
+	
+
+
+
+
+
+
+
 func is_active() -> bool:
 
 	return state == GameState.ACTIVE
 
 
+func is_paused() -> bool:
+
+	return paused
 
 
 
@@ -136,6 +202,16 @@ func is_active() -> bool:
 
 
 
+
+func get_player() -> Player:
+
+	if !player:
+
+		player = load("res://player/player.tscn").instantiate()
+
+		player._initialize()
+
+	return player
 
 
 

@@ -12,6 +12,8 @@ var world_root: WorldRoot
 
 func _ready() -> void:
 
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
 	main_menu = get_tree().get_first_node_in_group("main_menu")
 
 	main_menu.start_requested.connect(_on_start_requested)
@@ -27,6 +29,10 @@ func _ready() -> void:
 
 
 func load_main_menu() -> MainMenu:
+
+	unload_location()
+
+	UI.clear_stack()
 
 	main_menu._activate()
 
@@ -67,7 +73,9 @@ func load_location(location_id: StringName) -> Location:
 
 func unload_location() -> void:
 
-	pass
+	Game.hold_player()
+
+	get_active_location().queue_free()
 
 
 

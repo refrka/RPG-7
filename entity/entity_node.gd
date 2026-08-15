@@ -9,6 +9,8 @@ class_name EntityNode extends PhysicsBody2D
 
 @export var component_root: Node
 
+@export var state_machine: StateMachine
+
 
 
 var active:= false
@@ -17,6 +19,7 @@ var initialized:= false
 
 
 
+var body_sprite_flipped:= false
 
 
 
@@ -30,7 +33,17 @@ func _initialize() -> void:
 
 		component._initialize(self)
 
+	state_machine.initialize(self)
+
 	initialized = true
+
+
+
+
+
+
+
+
 
 
 
@@ -69,6 +82,33 @@ func get_component(component_script: Script) -> Component:
 
 
 
+func set_body_sprite_flipped(state: bool) -> void:
+
+	body_sprite_flipped = state
+
+	body_sprite.flip_h = state
+
+
+
+func set_body_sprite_up(state: bool) -> void:
+
+	body_sprite.frame = 0 if state == false else 1
+
+
+
+
+
+
+
+
+
+
+func is_sprite_flipped() -> bool:
+
+	return body_sprite_flipped
+
+
+
 
 
 
@@ -85,6 +125,8 @@ func _activate() -> void:
 
 	assert(initialized, "Trying to activate uninitialized entity: %s" % self)
 
+	show()
+
 	active = true
 
 	process_mode = Node.PROCESS_MODE_INHERIT
@@ -96,7 +138,11 @@ func _activate() -> void:
 
 
 
+
+
 func _deactivate() -> void:
+
+	hide()
 
 	active = false
 

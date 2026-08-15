@@ -1,10 +1,13 @@
 class_name UIElement extends Control
 
 
+@warning_ignore_start("unused_signal")
+
+signal close_requested
 
 
 
-
+@export var pause_game:= false
 
 @export var stay_connected:= false
 

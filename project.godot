@@ -17,9 +17,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Game="*uid://cm5ei1j48vhle"
 Events="*uid://c5gsftw2thfya"
 UI="*uid://djklgk63lhejf"
-Game="*uid://cm5ei1j48vhle"
 Scenes="*uid://6tjupajii8en"
 Debug="*uid://bhvwgr5ffwmtt"
 
@@ -80,6 +80,11 @@ move_down={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":83,"key_label":0,"unicode":115,"location":0,"echo":false,"script":null)
 ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="CharacterNode"
+2d_physics/layer_2="ObjectNode"
 
 [physics]
 

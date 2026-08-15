@@ -2,12 +2,155 @@
 
 [ext_resource type="Script" uid="uid://bxo1ne0t8lvud" path="res://entity/character_node.gd" id="1_ufg3e"]
 [ext_resource type="Script" uid="uid://csb2nq81ql46s" path="res://system/components/movement_component.gd" id="2_mbyps"]
+[ext_resource type="Script" uid="uid://crkc2pxqnmmy0" path="res://system/components/animation_component.gd" id="3_cxnu7"]
+[ext_resource type="Script" uid="uid://vhbxuxsy7lew" path="res://system/state/state_machine.gd" id="4_0rdkl"]
+[ext_resource type="Script" uid="uid://mxqkgj01obtw" path="res://system/state/idle_state.gd" id="5_jg2qq"]
+[ext_resource type="AnimationNodeBlendTree" uid="uid://fb2bd7l8n1qv" path="res://resources/character_node_tree_root.tres" id="6_acwdd"]
 
-[node name="CharacterNode" type="CharacterBody2D" unique_id=953221964 node_paths=PackedStringArray("body_sprite", "body_collision", "component_root")]
+[sub_resource type="Animation" id="Animation_jg2qq"]
+resource_name = "face_down_left"
+length = 0.13333334
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"set_body_sprite_up"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [true],
+"method": &"set_body_sprite_flipped"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_acwdd"]
+resource_name = "face_down_right"
+length = 0.13333334
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"set_body_sprite_up"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"set_body_sprite_flipped"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_cxnu7"]
+resource_name = "face_up_left"
+length = 0.13333334
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [true],
+"method": &"set_body_sprite_up"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [true],
+"method": &"set_body_sprite_flipped"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_0rdkl"]
+resource_name = "face_up_right"
+length = 0.13333334
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [true],
+"method": &"set_body_sprite_up"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [false],
+"method": &"set_body_sprite_flipped"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0rdkl"]
+_data = {
+&"face_down_left": SubResource("Animation_jg2qq"),
+&"face_down_right": SubResource("Animation_acwdd"),
+&"face_up_left": SubResource("Animation_cxnu7"),
+&"face_up_right": SubResource("Animation_0rdkl")
+}
+
+[node name="CharacterNode" type="CharacterBody2D" unique_id=953221964 node_paths=PackedStringArray("body_sprite", "body_collision", "component_root", "state_machine")]
+collision_mask = 3
+motion_mode = 1
 script = ExtResource("1_ufg3e")
 body_sprite = NodePath("VisualRoot/BodySprite")
 body_collision = NodePath("BodyCollision")
 component_root = NodePath("ComponentRoot")
+state_machine = NodePath("StateMachine")
 
 [node name="VisualRoot" type="Node2D" parent="." unique_id=610507474]
 
@@ -20,3 +163,27 @@ component_root = NodePath("ComponentRoot")
 [node name="MovementComponent" type="Node" parent="ComponentRoot" unique_id=1807536729]
 script = ExtResource("2_mbyps")
 metadata/_custom_type_script = "uid://csb2nq81ql46s"
+
+[node name="AnimationComponent" type="Node" parent="ComponentRoot" unique_id=910291324 node_paths=PackedStringArray("anim_player", "anim_tree")]
+script = ExtResource("3_cxnu7")
+anim_player = NodePath("../../AnimationPlayer")
+anim_tree = NodePath("../../AnimationTree")
+
+[node name="StateMachine" type="Node" parent="." unique_id=1959288494 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_0rdkl")
+initial_state = NodePath("IdleState")
+metadata/_custom_type_script = "uid://vhbxuxsy7lew"
+
+[node name="IdleState" type="Node" parent="StateMachine" unique_id=584292756]
+script = ExtResource("5_jg2qq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1826499380]
+libraries/ = SubResource("AnimationLibrary_0rdkl")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=2145901673]
+tree_root = ExtResource("6_acwdd")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("../AnimationPlayer")
+parameters/RootState/CombatState/CombatReadyBlend/blend_position = Vector2(0, 0)
+parameters/BodyState/IdleBlend/blend_position = Vector2(0, 0)
+parameters/Add2/add_amount = 0.0
