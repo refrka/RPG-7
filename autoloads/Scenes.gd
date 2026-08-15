@@ -38,6 +38,9 @@ func load_main_menu() -> MainMenu:
 
 
 
+
+
+
 func load_saved_location() -> Location:
 
 	return null
