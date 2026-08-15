@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://chv1xccb1hfcw"]
+
+[ext_resource type="Script" uid="uid://bxo1ne0t8lvud" path="res://entity/character_node.gd" id="1_ufg3e"]
+[ext_resource type="Script" uid="uid://csb2nq81ql46s" path="res://system/components/movement_component.gd" id="2_mbyps"]
+
+[node name="CharacterNode" type="CharacterBody2D" unique_id=953221964 node_paths=PackedStringArray("body_sprite", "body_collision", "component_root")]
+script = ExtResource("1_ufg3e")
+body_sprite = NodePath("VisualRoot/BodySprite")
+body_collision = NodePath("BodyCollision")
+component_root = NodePath("ComponentRoot")
+
+[node name="VisualRoot" type="Node2D" parent="." unique_id=610507474]
+
+[node name="BodySprite" type="Sprite2D" parent="VisualRoot" unique_id=401844450]
+
+[node name="BodyCollision" type="CollisionShape2D" parent="." unique_id=835819827]
+
+[node name="ComponentRoot" type="Node" parent="." unique_id=1368647879]
+
+[node name="MovementComponent" type="Node" parent="ComponentRoot" unique_id=1807536729]
+script = ExtResource("2_mbyps")
+metadata/_custom_type_script = "uid://csb2nq81ql46s"

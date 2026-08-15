@@ -15,8 +15,12 @@ enum GameState {
 
 var state: GameState
 
-
 var last_save_dict:= {}
+
+
+
+var player: CharacterNode
+
 
 
 
@@ -30,13 +34,13 @@ func _ready() -> void:
 
 
 
-
-
 func start() -> void:
 
 	if last_save_dict.is_empty():
 
 		new_save()
+
+	Scenes.load_location(last_save_dict["saved_location_id"])
 
 	_change_state(GameState.ACTIVE)
 
@@ -49,7 +53,10 @@ func quit() -> void:
 
 	last_save_dict = {}
 
+	Scenes.load_main_menu()
+
 	_change_state(GameState.MAIN_MENU)
+
 
 
 

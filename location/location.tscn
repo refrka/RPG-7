@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://deth7jv0p3oe"]
+
+[ext_resource type="Script" uid="uid://dsa6pdlq48ana" path="res://location/location.gd" id="1_b5lvo"]
+[ext_resource type="TileSet" uid="uid://dmqubffv2c7n1" path="res://resources/default_tile_set.tres" id="2_kgod7"]
+
+[node name="Location" type="Node2D" unique_id=1237254734 node_paths=PackedStringArray("nav_region", "tile_map", "character_root", "object_root", "spawn_point_root")]
+script = ExtResource("1_b5lvo")
+nav_region = NodePath("TileMapLayer/NavigationRegion2D")
+tile_map = NodePath("TileMapLayer")
+character_root = NodePath("YSortRoot/CharacterRoot")
+object_root = NodePath("YSortRoot/ObjectRoot")
+spawn_point_root = NodePath("SpawnPointRoot")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=13803668]
+tile_set = ExtResource("2_kgod7")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="TileMapLayer" unique_id=387890115]
+
+[node name="YSortRoot" type="Node2D" parent="." unique_id=1706591064]
+y_sort_enabled = true
+
+[node name="CharacterRoot" type="Node2D" parent="YSortRoot" unique_id=968307064]
+y_sort_enabled = true
+
+[node name="ObjectRoot" type="Node2D" parent="YSortRoot" unique_id=615345671]
+y_sort_enabled = true
+
+[node name="SpawnPointRoot" type="Node2D" parent="." unique_id=881359158]

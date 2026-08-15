@@ -4,6 +4,8 @@ var data = {
 
 	"player_name": "",
 
-	
+	"saved_location_id": "starting_location",
+
+	"saved_spawn_id": "default",
 
 }
