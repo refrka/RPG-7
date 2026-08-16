@@ -8,6 +8,12 @@ class_name EntityNode extends PhysicsBody2D
 
 @export var body_collision: CollisionShape2D
 
+@export var body_hurtbox: Hurtbox
+
+@export var combat_hitbox: Hitbox
+
+@export var vision_sensor: Sensor
+
 @export var component_root: Node
 
 @export var state_machine: StateMachine
@@ -43,6 +49,18 @@ func _initialize() -> void:
 		component._initialize(self)
 
 	state_machine.initialize(self)
+
+	if body_hurtbox:
+
+		body_hurtbox.setup(self)
+
+	if combat_hitbox:
+
+		combat_hitbox.setup(self)
+
+	if vision_sensor:
+
+		vision_sensor.setup(self)
 
 	initialized = true
 
@@ -165,7 +183,15 @@ func _activate() -> void:
 
 		component._activate()
 
-	state_machine.activate()
+	if state_machine: state_machine.activate()
+
+	if body_hurtbox: body_hurtbox.activate()
+
+	if combat_hitbox: combat_hitbox.activate()
+
+	if vision_sensor: vision_sensor.activate()
+
+
 
 
 
@@ -184,4 +210,10 @@ func _deactivate() -> void:
 
 		component._deactivate()
 
-	state_machine.deactivate()
+	if state_machine: state_machine.deactivate()
+
+	if body_hurtbox: body_hurtbox.deactivate()
+
+	if combat_hitbox: combat_hitbox.deactivate()
+
+	if vision_sensor: vision_sensor.deactivate()

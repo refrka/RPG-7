@@ -10,6 +10,9 @@
 radius = 6.0
 height = 20.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_me77t"]
+size = Vector2(20, 32)
+
 [sub_resource type="Animation" id="Animation_qjkh3"]
 resource_name = "move_down_left"
 length = 0.2
@@ -155,7 +158,11 @@ position = Vector2(0, -6)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_4ptr2")
 
-[node name="CombatRoot" parent="." index="2" unique_id=1428999100]
+[node name="CollisionShape2D" parent="BodyHurtbox" parent_id_path=PackedInt32Array(47728303) index="0" unique_id=273920194]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_me77t")
+
+[node name="CombatRoot" parent="." index="4" unique_id=1428999100]
 y_sort_enabled = true
 position = Vector2(0, -16)
 
@@ -163,12 +170,13 @@ position = Vector2(0, -16)
 script = ExtResource("2_g1dw6")
 metadata/_custom_type_script = "uid://0rw6dqb77ahy"
 
-[node name="AnimationPlayer" parent="." index="5" unique_id=1826499380]
+[node name="AnimationPlayer" parent="." index="7" unique_id=1826499380]
 libraries/player = SubResource("AnimationLibrary_qjkh3")
 
-[node name="AnimationTree" parent="." index="6" unique_id=2145901673]
+[node name="AnimationTree" parent="." index="8" unique_id=2145901673]
 parameters/BodyState/IdleBlend/blend_position = Vector2(0.6467135, -0.48870063)
 parameters/BodyState/MovingBlend/blend_position = Vector2(0.0017181635, 0.97783935)
 parameters/Add2/add_amount = 1.0
 
+[editable path="BodyHurtbox"]
 [editable path="CombatRoot/CombatHitbox"]

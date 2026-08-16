@@ -5,6 +5,7 @@ class_name CombatComponent extends Component
 
 @export var combat_root: Node2D
 
+var combat_hitbox: Hitbox
 
 
 var current_attack_config: AttackConfig
@@ -36,6 +37,8 @@ var attack_animation_node: AnimationNodeAnimation
 func _initialize(_entity: EntityNode) -> void:
 
 	super(_entity)
+
+	combat_hitbox = entity.combat_hitbox
 
 	var input_component = entity.get_component(InputComponent)
 
@@ -79,7 +82,7 @@ func disable_buffer() -> void:
 
 
 
-func receive_damage_package(damage_package: DamagePackage) -> void:
+func receive_damage_package(_damage_package: DamagePackage) -> void:
 
 	if _is_attacking():
 
@@ -94,6 +97,10 @@ func get_attack_entry(index:= -1) -> AttackEntry:
 	if index == -1:
 
 		index = current_attack_index
+
+	if _is_attack_index_valid(index):
+
+		return current_attack_config.attack_set[index]
 
 	return null
 
@@ -164,13 +171,15 @@ func _finish_attack() -> void:
 
 	buffer_enabled = false
 
+	combat_hitbox.clear_hit_list()
+
 	if buffered:
 
 		buffered = false
 
 		current_attack_index += 1
 
-		_start_attack.call_deferred()
+		_try_attack.call_deferred()
 
 		return
 
@@ -196,6 +205,15 @@ func _interrupt_attack() -> void:
 func _enter_combat() -> void:
 
 	entity.state_machine.request_state(CombatReadyState)
+
+
+
+
+
+func _deliver_hit(target_entity: EntityNode) -> void:
+
+	target_entity.receive_damage_package(_get_damage_package())
+
 
 
 
@@ -249,7 +267,13 @@ func _is_attack_index_valid(index: int) -> bool:
 
 		return false
 
-	return current_attack_config.attack_set.size() - 1 <= index
+	var num_attack_entries = current_attack_config.attack_set.size()
+
+	if index + 1 > num_attack_entries:
+
+		return false
+
+	return true
 
 
 
@@ -259,6 +283,22 @@ func _is_attack_index_valid(index: int) -> bool:
 func _get_attack_animation_name() -> String:
 
 	return "%s/attack_%s" % [current_library_name, current_attack_index]
+
+
+
+func _get_damage_package() -> DamagePackage:
+
+	var attack_entry = get_attack_entry()
+
+	var damage_package = DamagePackage.new()
+
+	var damage_entry = DamageEntry.new()
+
+	damage_entry.amount = attack_entry.get_damage_roll()
+
+	damage_package.add_damage_entry(damage_entry)
+
+	return damage_package
 
 
 
@@ -284,7 +324,11 @@ func _handle_weapon_attack_input(pressed: bool) -> void:
 
 		elif buffer_enabled:
 
-			buffered = true
+			var buffered_index = current_attack_index + 1
+
+			if _is_attack_index_valid(buffered_index):
+
+				buffered = true
 
 
 
@@ -313,3 +357,37 @@ func _on_weapon_attack_input_pressed() -> void:
 func _on_weapon_attack_input_released() -> void:
 
 	_handle_weapon_attack_input(false)
+
+
+
+
+func _on_hit_detected(hit_entity: EntityNode) -> void:
+
+	_deliver_hit(hit_entity)
+
+
+
+
+
+
+
+
+
+func _activate() -> void:
+
+	super()
+
+	if combat_hitbox:
+		
+		combat_hitbox.hit_detected.connect(_on_hit_detected)
+
+
+
+
+func _deactivate() -> void:
+
+	super()
+
+	if combat_hitbox:
+
+		combat_hitbox.hit_detected.disconnect(_on_hit_detected)

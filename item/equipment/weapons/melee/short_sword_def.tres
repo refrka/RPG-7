@@ -6,10 +6,16 @@
 
 [sub_resource type="Resource" id="Resource_e2lb0"]
 script = ExtResource("1_e2lb0")
+lunge_factor = 250.0
+
+[sub_resource type="Resource" id="Resource_ajxwt"]
+script = ExtResource("1_e2lb0")
+lunge_factor = 500.0
+metadata/_custom_type_script = "uid://dpo3me576rhh6"
 
 [sub_resource type="Resource" id="Resource_u26y1"]
 script = ExtResource("2_ncb88")
-attack_set = Array[ExtResource("1_e2lb0")]([SubResource("Resource_e2lb0")])
+attack_set = Array[ExtResource("1_e2lb0")]([SubResource("Resource_e2lb0"), SubResource("Resource_ajxwt")])
 
 [resource]
 script = ExtResource("1_echfh")

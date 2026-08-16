@@ -21,8 +21,6 @@ var entity: EntityNode
 
 func setup(_entity: EntityNode = null) -> void:
 
-	activate()
-
 	entity = _entity
 
 

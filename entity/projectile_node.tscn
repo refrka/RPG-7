@@ -1,21 +1,17 @@
-[gd_scene format=3 uid="uid://chv1xccb1hfcw"]
+[gd_scene format=3 uid="uid://dpj0sg36sj8c6"]
 
-[ext_resource type="Script" uid="uid://bxo1ne0t8lvud" path="res://entity/character_node.gd" id="1_ufg3e"]
-[ext_resource type="PackedScene" uid="uid://b0y03senpcrqt" path="res://system/combat/hitbox.tscn" id="2_22lai"]
-[ext_resource type="Script" uid="uid://csb2nq81ql46s" path="res://system/components/movement_component.gd" id="2_mbyps"]
-[ext_resource type="PackedScene" uid="uid://b2mtayx10mrnt" path="res://system/combat/hurtbox.tscn" id="2_me77t"]
-[ext_resource type="Script" uid="uid://crkc2pxqnmmy0" path="res://system/components/animation_component.gd" id="3_cxnu7"]
-[ext_resource type="Script" uid="uid://cqwhiyul6y1c6" path="res://system/components/combat_component.gd" id="4_0hq70"]
-[ext_resource type="Script" uid="uid://vhbxuxsy7lew" path="res://system/state/state_machine.gd" id="4_0rdkl"]
-[ext_resource type="Script" uid="uid://beq8s2yux5k74" path="res://system/sensor.gd" id="4_cku0k"]
-[ext_resource type="Script" uid="uid://mxqkgj01obtw" path="res://system/state/idle_state.gd" id="5_jg2qq"]
-[ext_resource type="Script" uid="uid://degrg3rwbb0jw" path="res://system/state/moving_state.gd" id="6_pgotb"]
-[ext_resource type="Script" uid="uid://kydiid5bdgvk" path="res://system/components/health_component.gd" id="7_bqwre"]
-[ext_resource type="AnimationNodeBlendTree" uid="uid://pppixbgfmexx" path="res://resources/player_tree_root.tres" id="7_pgotb"]
-[ext_resource type="Script" uid="uid://d2q0typy8hlfk" path="res://system/state/combat_ready_state.gd" id="8_t1wp5"]
-[ext_resource type="AnimationLibrary" uid="uid://f1nqfhovo640" path="res://item/equipment/weapons/melee/short_sword_library.res" id="9_gqgbn"]
-[ext_resource type="Script" uid="uid://cm5pb6abodo00" path="res://system/state/combat_attacking_state.gd" id="10_udydy"]
-[ext_resource type="Script" uid="uid://7630ld86p1cj" path="res://system/state/combat_flinch_state.gd" id="11_me77t"]
+[ext_resource type="Script" uid="uid://djol75msvci13" path="res://entity/projectile_node.gd" id="1_s1i3m"]
+[ext_resource type="PackedScene" uid="uid://b2mtayx10mrnt" path="res://system/combat/hurtbox.tscn" id="1_vq2qw"]
+[ext_resource type="PackedScene" uid="uid://b0y03senpcrqt" path="res://system/combat/hitbox.tscn" id="2_wnamx"]
+[ext_resource type="Script" uid="uid://csb2nq81ql46s" path="res://system/components/movement_component.gd" id="3_u6vob"]
+[ext_resource type="Script" uid="uid://crkc2pxqnmmy0" path="res://system/components/animation_component.gd" id="4_f7vj5"]
+[ext_resource type="Script" uid="uid://cqwhiyul6y1c6" path="res://system/components/combat_component.gd" id="5_ncm1t"]
+[ext_resource type="Script" uid="uid://vhbxuxsy7lew" path="res://system/state/state_machine.gd" id="6_dqxeu"]
+[ext_resource type="Script" uid="uid://mxqkgj01obtw" path="res://system/state/idle_state.gd" id="7_oekoj"]
+[ext_resource type="Script" uid="uid://umkee4arr7c1" path="res://system/components/projectile_component.gd" id="7_yqylt"]
+[ext_resource type="Script" uid="uid://degrg3rwbb0jw" path="res://system/state/moving_state.gd" id="8_t33xu"]
+[ext_resource type="AnimationLibrary" uid="uid://f1nqfhovo640" path="res://item/equipment/weapons/melee/short_sword_library.res" id="12_1hc13"]
+[ext_resource type="AnimationNodeBlendTree" uid="uid://pppixbgfmexx" path="res://resources/player_tree_root.tres" id="13_k6yjy"]
 
 [sub_resource type="Animation" id="Animation_0hq70"]
 length = 0.001
@@ -114,20 +110,6 @@ tracks/7/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(16, -0.5)]
-}
-
-[sub_resource type="Animation" id="Animation_cku0k"]
-resource_name = "cancel_attack"
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ComponentRoot/CombatComponent")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"values": []
 }
 
 [sub_resource type="Animation" id="Animation_jg2qq"]
@@ -260,10 +242,9 @@ tracks/0/keys = {
 }]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_0rdkl"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ik0on"]
 _data = {
 &"RESET": SubResource("Animation_0hq70"),
-&"cancel_attack": SubResource("Animation_cku0k"),
 &"face_down_left": SubResource("Animation_jg2qq"),
 &"face_down_right": SubResource("Animation_acwdd"),
 &"face_up_left": SubResource("Animation_cxnu7"),
@@ -271,104 +252,81 @@ _data = {
 &"finish_attack": SubResource("Animation_pgotb")
 }
 
-[node name="CharacterNode" type="CharacterBody2D" unique_id=953221964 node_paths=PackedStringArray("body_sprite", "body_collision", "body_hurtbox", "combat_hitbox", "vision_sensor", "component_root", "state_machine")]
-y_sort_enabled = true
-collision_mask = 3
-motion_mode = 1
-script = ExtResource("1_ufg3e")
+[node name="ProjectileNode" type="CharacterBody2D" unique_id=1999708757 node_paths=PackedStringArray("body_sprite", "body_collision", "body_hurtbox", "combat_hitbox", "component_root", "state_machine")]
+script = ExtResource("1_s1i3m")
 body_sprite = NodePath("VisualRoot/BodySprite")
 body_collision = NodePath("BodyCollision")
 body_hurtbox = NodePath("BodyHurtbox")
 combat_hitbox = NodePath("CombatRoot/CombatHitbox")
-vision_sensor = NodePath("VisionSensor")
 component_root = NodePath("ComponentRoot")
 state_machine = NodePath("StateMachine")
 
-[node name="VisualRoot" type="Node2D" parent="." unique_id=610507474]
+[node name="VisualRoot" type="Node2D" parent="." unique_id=1414534989]
 y_sort_enabled = true
 
-[node name="BodySprite" type="Sprite2D" parent="VisualRoot" unique_id=401844450]
+[node name="BodySprite" type="Sprite2D" parent="VisualRoot" unique_id=44914441]
 hframes = 2
 
-[node name="CombatVisualRoot" type="Node2D" parent="VisualRoot" unique_id=1349007373]
+[node name="CombatVisualRoot" type="Node2D" parent="VisualRoot" unique_id=1965833067]
 y_sort_enabled = true
 
-[node name="CombatSprite" type="Sprite2D" parent="VisualRoot/CombatVisualRoot" unique_id=1361711463]
+[node name="CombatSprite" type="Sprite2D" parent="VisualRoot/CombatVisualRoot" unique_id=1367590355]
 
-[node name="BodyCollision" type="CollisionShape2D" parent="." unique_id=835819827]
+[node name="BodyCollision" type="CollisionShape2D" parent="." unique_id=1175148343]
 
-[node name="BodyHurtbox" parent="." unique_id=47728303 instance=ExtResource("2_me77t")]
+[node name="BodyHurtbox" parent="." unique_id=47728303 instance=ExtResource("1_vq2qw")]
 
 [node name="CollisionShape2D" parent="BodyHurtbox" index="0" unique_id=273920194]
 debug_color = Color(0.71, 0, 0.1775, 0.078431375)
 
-[node name="VisionSensor" type="Area2D" parent="." unique_id=391369878]
-script = ExtResource("4_cku0k")
-metadata/_custom_type_script = "uid://beq8s2yux5k74"
+[node name="CombatRoot" type="Node2D" parent="." unique_id=1091854993]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionSensor" unique_id=622811605]
-
-[node name="CombatRoot" type="Node2D" parent="." unique_id=1428999100]
-
-[node name="CombatSpriteRemote" type="RemoteTransform2D" parent="CombatRoot" unique_id=2039104834]
+[node name="CombatSpriteRemote" type="RemoteTransform2D" parent="CombatRoot" unique_id=380837054]
 remote_path = NodePath("../../VisualRoot/CombatVisualRoot/CombatSprite")
 
-[node name="CombatHitbox" parent="CombatRoot" unique_id=1528857398 instance=ExtResource("2_22lai")]
+[node name="CombatHitbox" parent="CombatRoot" unique_id=1528857398 instance=ExtResource("2_wnamx")]
 
 [node name="CollisionShape2D" parent="CombatRoot/CombatHitbox" index="0" unique_id=1494592318]
 position = Vector2(16, -0.5)
 
-[node name="ComponentRoot" type="Node" parent="." unique_id=1368647879]
+[node name="ComponentRoot" type="Node" parent="." unique_id=616949005]
 
-[node name="MovementComponent" type="Node" parent="ComponentRoot" unique_id=1807536729]
-script = ExtResource("2_mbyps")
+[node name="MovementComponent" type="Node" parent="ComponentRoot" unique_id=487695085]
+script = ExtResource("3_u6vob")
 metadata/_custom_type_script = "uid://csb2nq81ql46s"
 
-[node name="AnimationComponent" type="Node" parent="ComponentRoot" unique_id=910291324 node_paths=PackedStringArray("anim_player", "anim_tree")]
-script = ExtResource("3_cxnu7")
+[node name="AnimationComponent" type="Node" parent="ComponentRoot" unique_id=1740692291 node_paths=PackedStringArray("anim_player", "anim_tree")]
+script = ExtResource("4_f7vj5")
 anim_player = NodePath("../../AnimationPlayer")
 anim_tree = NodePath("../../AnimationTree")
 
-[node name="CombatComponent" type="Node" parent="ComponentRoot" unique_id=225979935 node_paths=PackedStringArray("combat_root")]
-script = ExtResource("4_0hq70")
-combat_root = NodePath("../../CombatRoot")
+[node name="CombatComponent" type="Node" parent="ComponentRoot" unique_id=1753406836]
+script = ExtResource("5_ncm1t")
 metadata/_custom_type_script = "uid://cqwhiyul6y1c6"
 
-[node name="HealthComponent" type="Node" parent="ComponentRoot" unique_id=1832166725]
-script = ExtResource("7_bqwre")
-metadata/_custom_type_script = "uid://kydiid5bdgvk"
+[node name="ProjectileComponent" type="Node" parent="ComponentRoot" unique_id=987543241]
+script = ExtResource("7_yqylt")
 
-[node name="StateMachine" type="Node" parent="." unique_id=1959288494 node_paths=PackedStringArray("initial_state")]
-script = ExtResource("4_0rdkl")
+[node name="StateMachine" type="Node" parent="." unique_id=1595141795 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("6_dqxeu")
 initial_state = NodePath("IdleState")
 metadata/_custom_type_script = "uid://vhbxuxsy7lew"
 
-[node name="IdleState" type="Node" parent="StateMachine" unique_id=584292756]
-script = ExtResource("5_jg2qq")
+[node name="IdleState" type="Node" parent="StateMachine" unique_id=894336216]
+script = ExtResource("7_oekoj")
 
-[node name="MovingState" type="Node" parent="StateMachine" unique_id=1200362369]
-script = ExtResource("6_pgotb")
+[node name="MovingState" type="Node" parent="StateMachine" unique_id=1138116100]
+script = ExtResource("8_t33xu")
 metadata/_custom_type_script = "uid://degrg3rwbb0jw"
 
-[node name="CombatReadyState" type="Node" parent="StateMachine" unique_id=425187733]
-script = ExtResource("8_t1wp5")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1174261796]
+libraries/ = SubResource("AnimationLibrary_ik0on")
+libraries/short_sword = ExtResource("12_1hc13")
 
-[node name="CombatFlinchState" type="Node" parent="StateMachine" unique_id=2011122971]
-script = ExtResource("11_me77t")
-
-[node name="CombatAttackingState" type="Node" parent="StateMachine" unique_id=395598698]
-script = ExtResource("10_udydy")
-metadata/_custom_type_script = "uid://cm5pb6abodo00"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1826499380]
-libraries/ = SubResource("AnimationLibrary_0rdkl")
-libraries/short_sword = ExtResource("9_gqgbn")
-
-[node name="AnimationTree" type="AnimationTree" parent="." unique_id=2145901673]
-tree_root = ExtResource("7_pgotb")
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1214924200]
+tree_root = ExtResource("13_k6yjy")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
-parameters/BodyState/FlinchBlend/blend_position = Vector2(0, 0)
 parameters/BodyState/IdleBlend/blend_position = Vector2(0.99656355, 0.010309219)
 parameters/BodyState/MovingBlend/blend_position = Vector2(0, 0)
 parameters/Add2/add_amount = 0.0

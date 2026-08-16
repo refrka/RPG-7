@@ -2,28 +2,50 @@
 
 [ext_resource type="Script" uid="uid://d2p8ieikkncmq" path="res://entity/object_node.gd" id="1_4ptr2"]
 [ext_resource type="Script" uid="uid://crkc2pxqnmmy0" path="res://system/components/animation_component.gd" id="2_7x2mx"]
+[ext_resource type="PackedScene" uid="uid://b2mtayx10mrnt" path="res://system/combat/hurtbox.tscn" id="2_s5vqo"]
+[ext_resource type="Script" uid="uid://kydiid5bdgvk" path="res://system/components/health_component.gd" id="4_81hc7"]
+[ext_resource type="Script" uid="uid://vhbxuxsy7lew" path="res://system/state/state_machine.gd" id="4_s5vqo"]
 
-[node name="ObjectNode" type="StaticBody2D" unique_id=1185277528 node_paths=PackedStringArray("body_sprite", "body_collision", "component_root")]
+[node name="ObjectNode" type="StaticBody2D" unique_id=1185277528 node_paths=PackedStringArray("body_sprite", "body_collision", "body_hurtbox", "component_root", "state_machine")]
+y_sort_enabled = true
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_4ptr2")
 body_sprite = NodePath("VisualRoot/BodySprite")
 body_collision = NodePath("BodyCollision")
+body_hurtbox = NodePath("BodyHurtbox")
 component_root = NodePath("ComponentRoot")
+state_machine = NodePath("StateMachine")
 
 [node name="VisualRoot" type="Node2D" parent="." unique_id=864377662]
+y_sort_enabled = true
 
 [node name="BodySprite" type="Sprite2D" parent="VisualRoot" unique_id=871109114]
 
 [node name="BodyCollision" type="CollisionShape2D" parent="." unique_id=708536288]
 
+[node name="BodyHurtbox" parent="." unique_id=47728303 instance=ExtResource("2_s5vqo")]
+
+[node name="CollisionShape2D" parent="BodyHurtbox" index="0" unique_id=273920194]
+debug_color = Color(0.71, 0, 0.1775, 0.078431375)
+
 [node name="ComponentRoot" type="Node" parent="." unique_id=1325195692]
 
-[node name="AnimationComponent" type="Node" parent="ComponentRoot" unique_id=823237255 node_paths=PackedStringArray("anim_player", "anim_tree")]
+[node name="AnimationComponent" type="Node" parent="ComponentRoot" unique_id=823237255]
 script = ExtResource("2_7x2mx")
-anim_player = NodePath("")
-anim_tree = NodePath("")
+
+[node name="HealthComponent" type="Node" parent="ComponentRoot" unique_id=566846231]
+script = ExtResource("4_81hc7")
+metadata/_custom_type_script = "uid://kydiid5bdgvk"
+
+[node name="StateMachine" type="Node" parent="." unique_id=1403393311]
+script = ExtResource("4_s5vqo")
+metadata/_custom_type_script = "uid://vhbxuxsy7lew"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=763276907]
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=1437702545]
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
+
+[editable path="BodyHurtbox"]

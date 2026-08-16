@@ -23,7 +23,7 @@ weapon_slot = SubResource("Resource_8fxaj")
 
 [resource]
 script = ExtResource("1_cujn1")
-move_speed = 500.0
+move_speed = 150.0
 entity_id = &"player"
 display_name = &"Player"
 initial_inventory = SubResource("Resource_qjkh3")

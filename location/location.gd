@@ -32,6 +32,10 @@ func _initialize() -> void:
 
 		character_node._initialize()
 
+	for object_node in get_all_object_nodes():
+
+		object_node._initialize()
+
 
 
 

@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://d25shj3da4uck"]
+
+[ext_resource type="PackedScene" uid="uid://engj86a0jnm2" path="res://entity/object_node.tscn" id="1_nss8x"]
+[ext_resource type="Script" uid="uid://beq8s2yux5k74" path="res://system/sensor.gd" id="2_mfd54"]
+[ext_resource type="Script" uid="uid://c2wfngrxdhdxd" path="res://system/components/turret_component.gd" id="2_ywebw"]
+
+[node name="TurretNode" unique_id=1185277528 node_paths=PackedStringArray("vision_sensor") instance=ExtResource("1_nss8x")]
+vision_sensor = NodePath("VisionSensor")
+
+[node name="VisionSensor" type="Area2D" parent="." index="3" unique_id=942755490]
+script = ExtResource("2_mfd54")
+metadata/_custom_type_script = "uid://beq8s2yux5k74"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionSensor" index="0" unique_id=144612384]
+debug_color = Color(0.63, 0.7, 0, 0.019607844)
+
+[node name="TurretComponent" type="Node" parent="ComponentRoot" parent_id_path=PackedInt32Array(1325195692) index="1" unique_id=841611543]
+script = ExtResource("2_ywebw")
+
+[editable path="BodyHurtbox"]

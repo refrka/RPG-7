@@ -27,7 +27,9 @@ var can_turn:= true
 
 var current_move_velocity:= Vector2.ZERO
 
+var current_input_velocity:= Vector2.ZERO
 
+var modifiers: Array[VelocityModifier]
 
 
 
@@ -56,6 +58,13 @@ func reset() -> void:
 
 
 
+func add_modifier(modifier: VelocityModifier) -> void:
+
+	modifiers.append(modifier)
+
+
+
+
 func halt() -> void:
 
 	entity.velocity = Vector2.ZERO
@@ -71,7 +80,15 @@ func halt() -> void:
 
 func get_move_speed() -> float:
 
-	return entity.get_entity_def().move_speed
+	var speed = entity.get_entity_def().move_speed
+
+	for modifier in modifiers:
+
+		if modifier.multiplier > 0.0:
+
+			speed *= modifier.multiplier
+
+	return speed
 
 
 
@@ -81,8 +98,6 @@ func get_move_speed() -> float:
 
 
 func set_move_dir(dir: Vector2) -> void:
-
-	print("setting dir")
 
 	move_dir = dir
 
@@ -119,36 +134,69 @@ func is_moving() -> bool:
 
 
 
-func _physics_process(_delta: float) -> void:
+
+
+
+
+func _get_impulse_velocity() -> Vector2:
+
+	var total = Vector2.ZERO
+
+	for modifier in modifiers:
+
+		if modifier.modifier_type == VelocityModifier.ModifierType.CUMULATIVE:
+
+			total += modifier.velocity
+
+	return total
+
+
+
+
+
+func _tick_modifiers(delta: float) -> void:
+
+	for i in range(modifiers.size() - 1, -1, -1):
+
+		modifiers[i].tick(delta)
+
+		if modifiers[i].is_expired():
+
+			modifiers.remove_at(i)
+
+
+
+
+func _physics_process(delta: float) -> void:
 
 	if !active:
 
 		return
 
-	var move_velocity = current_move_velocity
+	_tick_modifiers(delta)
 
 	if can_turn:
 
-		move_velocity = move_dir * get_move_speed()
+		current_input_velocity = move_dir * get_move_speed()
 
 		set_face_dir(move_dir)
 
 	if can_move:
 
-		if current_move_velocity == Vector2.ZERO and move_velocity != Vector2.ZERO:
+		if current_move_velocity == Vector2.ZERO and current_move_velocity != Vector2.ZERO:
 
 			move_started.emit()
 		
 			animation_component.travel_playback("body", "MovingBlend")
 
-		if current_move_velocity != Vector2.ZERO and move_velocity == Vector2.ZERO:
+		if current_move_velocity != Vector2.ZERO and current_move_velocity == Vector2.ZERO:
 
 			move_ended.emit()
 		
 			animation_component.travel_playback("body", "IdleBlend")
 
-		entity.velocity = move_velocity
+		entity.velocity = current_input_velocity + _get_impulse_velocity()
 
-		current_move_velocity = move_velocity
+		current_move_velocity = entity.velocity
 
 		entity.move_and_slide()

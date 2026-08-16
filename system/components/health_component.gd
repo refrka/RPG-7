@@ -50,6 +50,8 @@ func reduce_health(amount: float) -> void:
 
 			health_depleted.emit()
 
+			entity.queue_free.call_deferred()
+
 
 
 
