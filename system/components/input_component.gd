@@ -2,6 +2,9 @@ class_name InputComponent extends Component
 
 
 
+signal weapon_attack_pressed
+
+signal weapon_attack_released
 
 
 var movement_component: MovementComponent
@@ -20,6 +23,26 @@ func _initialize(_entity: EntityNode) -> void:
 
 	movement_component = entity.get_component(MovementComponent)
 
+
+
+
+
+
+
+
+func _unhandled_input(event: InputEvent) -> void:
+
+	if !active:
+
+		return
+
+	if event.is_action_pressed("weapon_attack"):
+
+		weapon_attack_pressed.emit()
+
+	if event.is_action_released("weapon_attack"):
+
+		weapon_attack_released.emit()
 
 
 

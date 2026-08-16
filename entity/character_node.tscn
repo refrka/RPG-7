@@ -3,147 +3,231 @@
 [ext_resource type="Script" uid="uid://bxo1ne0t8lvud" path="res://entity/character_node.gd" id="1_ufg3e"]
 [ext_resource type="Script" uid="uid://csb2nq81ql46s" path="res://system/components/movement_component.gd" id="2_mbyps"]
 [ext_resource type="Script" uid="uid://crkc2pxqnmmy0" path="res://system/components/animation_component.gd" id="3_cxnu7"]
+[ext_resource type="Script" uid="uid://cqwhiyul6y1c6" path="res://system/components/combat_component.gd" id="4_0hq70"]
 [ext_resource type="Script" uid="uid://vhbxuxsy7lew" path="res://system/state/state_machine.gd" id="4_0rdkl"]
 [ext_resource type="Script" uid="uid://mxqkgj01obtw" path="res://system/state/idle_state.gd" id="5_jg2qq"]
-[ext_resource type="AnimationNodeBlendTree" uid="uid://fb2bd7l8n1qv" path="res://resources/character_node_tree_root.tres" id="6_acwdd"]
+[ext_resource type="Script" uid="uid://degrg3rwbb0jw" path="res://system/state/moving_state.gd" id="6_pgotb"]
+[ext_resource type="AnimationNodeBlendTree" uid="uid://pppixbgfmexx" path="res://resources/player_tree_root.tres" id="7_pgotb"]
+[ext_resource type="Script" uid="uid://d2q0typy8hlfk" path="res://system/state/combat_ready_state.gd" id="8_t1wp5"]
+[ext_resource type="AnimationLibrary" uid="uid://f1nqfhovo640" path="res://item/equipment/weapons/melee/short_sword_library.res" id="9_gqgbn"]
 
-[sub_resource type="Animation" id="Animation_jg2qq"]
-resource_name = "face_down_left"
-length = 0.13333334
-tracks/0/type = "method"
+[sub_resource type="Animation" id="Animation_0hq70"]
+length = 0.001
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".")
+tracks/0/path = NodePath("VisualRoot/BodySprite:flip_h")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"values": [{
-"args": [false],
-"method": &"set_body_sprite_up"
-}]
+"update": 1,
+"values": [false]
 }
-tracks/1/type = "method"
+tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".")
+tracks/1/path = NodePath("VisualRoot/BodySprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"values": [{
-"args": [true],
-"method": &"set_body_sprite_flipped"
-}]
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VisualRoot/CombatVisualRoot/CombatSprite:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("VisualRoot/CombatVisualRoot/CombatSprite:hframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("VisualRoot/CombatVisualRoot/CombatSprite:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("VisualRoot/CombatVisualRoot/CombatSprite:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_jg2qq"]
+resource_name = "face_down_left"
+length = 0.13333334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VisualRoot/BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VisualRoot/BodySprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_acwdd"]
 resource_name = "face_down_right"
 length = 0.13333334
-tracks/0/type = "method"
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".")
+tracks/0/path = NodePath("VisualRoot/BodySprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"values": [{
-"args": [false],
-"method": &"set_body_sprite_up"
-}]
+"update": 1,
+"values": [0]
 }
-tracks/1/type = "method"
+tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".")
+tracks/1/path = NodePath("VisualRoot/BodySprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"values": [{
-"args": [false],
-"method": &"set_body_sprite_flipped"
-}]
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_cxnu7"]
 resource_name = "face_up_left"
 length = 0.13333334
-tracks/0/type = "method"
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".")
+tracks/0/path = NodePath("VisualRoot/BodySprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"values": [{
-"args": [true],
-"method": &"set_body_sprite_up"
-}]
+"update": 1,
+"values": [1]
 }
-tracks/1/type = "method"
+tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".")
+tracks/1/path = NodePath("VisualRoot/BodySprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"values": [{
-"args": [true],
-"method": &"set_body_sprite_flipped"
-}]
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_0rdkl"]
 resource_name = "face_up_right"
 length = 0.13333334
-tracks/0/type = "method"
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".")
+tracks/0/path = NodePath("VisualRoot/BodySprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"values": [{
-"args": [true],
-"method": &"set_body_sprite_up"
-}]
+"update": 1,
+"values": [1]
 }
-tracks/1/type = "method"
+tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".")
+tracks/1/path = NodePath("VisualRoot/BodySprite:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_pgotb"]
+resource_name = "finish_attack"
+length = 0.05
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ComponentRoot/CombatComponent")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.001),
+"transitions": PackedFloat32Array(1),
 "values": [{
-"args": [false],
-"method": &"set_body_sprite_flipped"
+"args": [],
+"method": &"_finish_attack"
 }]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0rdkl"]
 _data = {
+&"RESET": SubResource("Animation_0hq70"),
 &"face_down_left": SubResource("Animation_jg2qq"),
 &"face_down_right": SubResource("Animation_acwdd"),
 &"face_up_left": SubResource("Animation_cxnu7"),
-&"face_up_right": SubResource("Animation_0rdkl")
+&"face_up_right": SubResource("Animation_0rdkl"),
+&"finish_attack": SubResource("Animation_pgotb")
 }
 
 [node name="CharacterNode" type="CharacterBody2D" unique_id=953221964 node_paths=PackedStringArray("body_sprite", "body_collision", "component_root", "state_machine")]
+y_sort_enabled = true
 collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_ufg3e")
@@ -153,10 +237,22 @@ component_root = NodePath("ComponentRoot")
 state_machine = NodePath("StateMachine")
 
 [node name="VisualRoot" type="Node2D" parent="." unique_id=610507474]
+y_sort_enabled = true
 
 [node name="BodySprite" type="Sprite2D" parent="VisualRoot" unique_id=401844450]
+hframes = 2
+
+[node name="CombatVisualRoot" type="Node2D" parent="VisualRoot" unique_id=1349007373]
+y_sort_enabled = true
+
+[node name="CombatSprite" type="Sprite2D" parent="VisualRoot/CombatVisualRoot" unique_id=1361711463]
 
 [node name="BodyCollision" type="CollisionShape2D" parent="." unique_id=835819827]
+
+[node name="CombatRoot" type="Node2D" parent="." unique_id=1428999100]
+
+[node name="CombatSpriteRemote" type="RemoteTransform2D" parent="CombatRoot" unique_id=2039104834]
+remote_path = NodePath("../../VisualRoot/CombatVisualRoot/CombatSprite")
 
 [node name="ComponentRoot" type="Node" parent="." unique_id=1368647879]
 
@@ -169,6 +265,10 @@ script = ExtResource("3_cxnu7")
 anim_player = NodePath("../../AnimationPlayer")
 anim_tree = NodePath("../../AnimationTree")
 
+[node name="CombatComponent" type="Node" parent="ComponentRoot" unique_id=225979935]
+script = ExtResource("4_0hq70")
+metadata/_custom_type_script = "uid://cqwhiyul6y1c6"
+
 [node name="StateMachine" type="Node" parent="." unique_id=1959288494 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("4_0rdkl")
 initial_state = NodePath("IdleState")
@@ -177,13 +277,22 @@ metadata/_custom_type_script = "uid://vhbxuxsy7lew"
 [node name="IdleState" type="Node" parent="StateMachine" unique_id=584292756]
 script = ExtResource("5_jg2qq")
 
+[node name="MovingState" type="Node" parent="StateMachine" unique_id=1200362369]
+script = ExtResource("6_pgotb")
+metadata/_custom_type_script = "uid://degrg3rwbb0jw"
+
+[node name="CombatReadyState" type="Node" parent="StateMachine" unique_id=425187733]
+script = ExtResource("8_t1wp5")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1826499380]
 libraries/ = SubResource("AnimationLibrary_0rdkl")
+libraries/short_sword = ExtResource("9_gqgbn")
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=2145901673]
-tree_root = ExtResource("6_acwdd")
+tree_root = ExtResource("7_pgotb")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
 parameters/RootState/CombatState/CombatReadyBlend/blend_position = Vector2(0, 0)
-parameters/BodyState/IdleBlend/blend_position = Vector2(0, 0)
+parameters/BodyState/IdleBlend/blend_position = Vector2(0.99656355, 0.010309219)
+parameters/BodyState/MovingBlend/blend_position = Vector2(0, 0)
 parameters/Add2/add_amount = 0.0

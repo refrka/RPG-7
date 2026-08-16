@@ -1,11 +1,4 @@
-class_name IdleState extends State
-
-
-
-
-
-
-
+class_name MovingState extends State
 
 
 
@@ -16,7 +9,7 @@ class_name IdleState extends State
 
 func _connect_signals() -> void:
 
-	movement_component.move_started.connect(_on_move_started)
+	movement_component.move_ended.connect(_on_move_ended)
 
 	movement_component.face_dir_updated.connect(_on_face_dir_updated)
 
@@ -26,10 +19,11 @@ func _connect_signals() -> void:
 
 func _disconnect_signals() -> void:
 
-	movement_component.move_started.disconnect(_on_move_started)
+	movement_component.move_ended.disconnect(_on_move_ended)
 
 	movement_component.face_dir_updated.disconnect(_on_face_dir_updated)
 	
+
 
 
 
@@ -39,7 +33,7 @@ func _update_animation_component() -> void:
 
 	animation_component.travel_playback("root", "DefaultState")
 
-	animation_component.travel_playback("body", "IdleBlend")
+	animation_component.travel_playback("body", "MovingBlend")
 
 	_update_facing_dir()
 
@@ -48,17 +42,14 @@ func _update_animation_component() -> void:
 
 func _update_facing_dir() -> void:
 
-	animation_component.set_blendspace_vector("idle", movement_component.face_dir)
+	animation_component.set_blendspace_vector("moving", movement_component.face_dir)
 
 
 
 
+func _on_move_ended() -> void:
 
-
-func _on_move_started() -> void:
-
-	transition(MovingState)
-
+	transition(IdleState)
 
 
 

@@ -42,6 +42,8 @@ func _ready() -> void:
 
 func start() -> void:
 
+	player._initialize()
+
 	if last_save_dict.is_empty():
 
 		new_save()
@@ -64,6 +66,8 @@ func exit() -> void:
 	last_save_dict = {}
 
 	Scenes.load_main_menu()
+
+	player._reset()
 
 	_change_state(GameState.MAIN_MENU)
 
@@ -208,8 +212,6 @@ func get_player() -> Player:
 	if !player:
 
 		player = load("res://player/player.tscn").instantiate()
-
-		player._initialize()
 
 	return player
 

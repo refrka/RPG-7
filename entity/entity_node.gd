@@ -2,6 +2,7 @@ class_name EntityNode extends PhysicsBody2D
 
 
 
+@export var entity_def: EntityDef
 
 @export var body_sprite: Sprite2D
 
@@ -17,9 +18,7 @@ var active:= false
 
 var initialized:= false
 
-
-
-var body_sprite_flipped:= false
+var inventory: Inventory
 
 
 
@@ -28,6 +27,16 @@ var body_sprite_flipped:= false
 func _initialize() -> void:
 
 	assert(!initialized, "Trying to initialize entity more than once: %s" % self)
+
+	if entity_def.initial_inventory:
+
+		inventory = entity_def.initial_inventory
+
+	else:
+
+		inventory = Inventory.new()
+
+	inventory.initialize()
 
 	for component in get_all_components():
 
@@ -44,11 +53,17 @@ func _initialize() -> void:
 
 
 
+func _reset() -> void:
 
+	initialized = false
 
+	inventory = null
 
+	for component in get_all_components():
 
+		if component.has_method("reset"):
 
+			component.reset()
 
 
 
@@ -82,18 +97,16 @@ func get_component(component_script: Script) -> Component:
 
 
 
-func set_body_sprite_flipped(state: bool) -> void:
-
-	body_sprite_flipped = state
-
-	body_sprite.flip_h = state
 
 
 
-func set_body_sprite_up(state: bool) -> void:
 
-	body_sprite.frame = 0 if state == false else 1
 
+func is_moving() -> bool:
+
+	var movement_component = get_component(MovementComponent)
+
+	return movement_component.is_moving()
 
 
 
@@ -102,18 +115,21 @@ func set_body_sprite_up(state: bool) -> void:
 
 
 
+func get_entity_def() -> EntityDef:
 
-func is_sprite_flipped() -> bool:
-
-	return body_sprite_flipped
-
+	return entity_def
 
 
 
+func get_display_name() -> StringName:
+
+	return entity_def.display_name
 
 
 
+func get_entity_id() -> StringName:
 
+	return entity_def.entity_id
 
 
 
@@ -135,6 +151,8 @@ func _activate() -> void:
 
 		component._activate()
 
+	state_machine.activate()
+
 
 
 
@@ -151,3 +169,5 @@ func _deactivate() -> void:
 	for component in get_all_components():
 
 		component._deactivate()
+
+	state_machine.deactivate()

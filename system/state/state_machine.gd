@@ -20,10 +20,6 @@ func initialize(entity: EntityNode) -> void:
 
 		state._initialize(entity)
 
-	if initial_state:
-
-		_change_state(initial_state)
-
 
 
 
@@ -54,7 +50,42 @@ func get_current_state() -> State:
 
 
 
+
+
+func activate() -> void:
+
+	active = true
+
+	if initial_state:
+
+		_change_state(initial_state)
+
+
+
+func deactivate() -> void:
+
+	active = false
+
+	if current_state:
+
+		current_state._exit()
+
+		current_state = null
+
+
+
+
+
+
+
+
+
+
 func _change_state(new_state: State) -> void:
+
+	if current_state == new_state:
+
+		return
 
 	if current_state:
 
@@ -63,9 +94,6 @@ func _change_state(new_state: State) -> void:
 	current_state = new_state
 
 	current_state._enter()
-
-
-
 
 
 
