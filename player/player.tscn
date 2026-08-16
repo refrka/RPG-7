@@ -148,7 +148,7 @@ position = Vector2(0, -16)
 rotation = 0.6562438
 
 [node name="CombatSprite" parent="VisualRoot/CombatVisualRoot" index="0" unique_id=1361711463]
-position = Vector2(12.676634, -9.762323)
+position = Vector2(9.507475, -7.321741)
 rotation = -0.6562438
 
 [node name="BodyCollision" parent="." index="1" unique_id=835819827]
