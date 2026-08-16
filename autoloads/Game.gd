@@ -228,6 +228,15 @@ func get_player() -> Player:
 
 
 
+func get_mouse_direction(origin_entity: EntityNode = null) -> Vector2:
+
+	if !origin_entity:
+
+		origin_entity = get_player()
+
+	return origin_entity.global_position.direction_to(Scenes.get_mouse_position())
+
+
 
 
 

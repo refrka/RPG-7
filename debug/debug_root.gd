@@ -22,6 +22,14 @@ class_name DebugRoot extends UIElement
 
 @export var flinch_state_label: Label
 
+@export var default_idle_state_label: Label
+
+@export var default_moving_state_label: Label
+
+@export var body_idle_state_label: Label
+
+@export var body_moving_state_label: Label
+
 
 
 func _ready() -> void:
@@ -57,6 +65,10 @@ func _activate() -> void:
 
 func _update_player_entity_state() -> void:
 
+	if !Game.is_active():
+
+		return
+
 	entity_state_label.text = Game.player.state_machine.get_current_state().get_state_name()
 
 
@@ -79,11 +91,15 @@ func _update_player_playback_state() -> void:
 
 	flinch_state_label.add_theme_color_override("font_color", Color("#6a6a6a"))
 
+	body_idle_state_label.add_theme_color_override("font_color", Color("#6a6a6a"))
+
+	body_moving_state_label.add_theme_color_override("font_color", Color("#6a6a6a"))
+
 	var animation_component = Game.player.get_component(AnimationComponent)
 
-	var current_node = animation_component.get_playback_current_node("root")
+	var current_root_node = animation_component.get_playback_current_node("root")
 
-	match current_node:
+	match current_root_node:
 
 		"DefaultState":
 
@@ -114,6 +130,18 @@ func _update_player_playback_state() -> void:
 				"FlinchState":
 
 					flinch_state_label.remove_theme_color_override("font_color")
+
+	var current_body_node = animation_component.get_playback_current_node("body")
+
+	match current_body_node:
+
+		"IdleBlend":
+
+			body_idle_state_label.remove_theme_color_override("font_color")
+
+		"MovingBlend":
+
+			body_moving_state_label.remove_theme_color_override("font_color")
 
 
 

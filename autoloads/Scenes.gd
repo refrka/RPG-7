@@ -115,7 +115,9 @@ func get_location_scene(location_id: StringName) -> Location:
 
 
 
+func get_mouse_position() -> Vector2:
 
+	return world_root.get_global_mouse_position()
 
 
 

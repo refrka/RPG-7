@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://gli1he03vwfa" path="res://debug/debug_root.gd" id="1_eovn5"]
 
-[node name="DebugRoot" type="Control" unique_id=75508425 node_paths=PackedStringArray("combat_state_row", "default_state_row", "entity_state_label", "default_state_label", "combat_state_label", "ready_state_label", "charge_attack_state_label", "execute_attack_state_label", "finish_attack_state_label", "flinch_state_label") groups=["debug_root"]]
+[node name="DebugRoot" type="Control" unique_id=75508425 node_paths=PackedStringArray("combat_state_row", "default_state_row", "entity_state_label", "default_state_label", "combat_state_label", "ready_state_label", "charge_attack_state_label", "execute_attack_state_label", "finish_attack_state_label", "flinch_state_label", "body_idle_state_label", "body_moving_state_label") groups=["debug_root"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,16 +11,18 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_eovn5")
-combat_state_row = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/CombatStateRow")
-default_state_row = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/DefaultStateRow")
+combat_state_row = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/CombatStateRow")
+default_state_row = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/DefaultStateRow")
 entity_state_label = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/EntityStateLabel")
 default_state_label = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/DefaultStateLabel")
 combat_state_label = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/CombatStateLabel")
-ready_state_label = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/CombatStateRow/ReadyStateLabel")
-charge_attack_state_label = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/CombatStateRow/ChargeAttackStateLabel")
-execute_attack_state_label = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/CombatStateRow/ExecuteAttackStateLabel")
-finish_attack_state_label = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/CombatStateRow/FinishAttackStateLabel")
-flinch_state_label = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/CombatStateRow/FlinchStateLabel")
+ready_state_label = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/CombatStateRow/ReadyStateLabel")
+charge_attack_state_label = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/CombatStateRow/ChargeAttackStateLabel")
+execute_attack_state_label = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/CombatStateRow/ExecuteAttackStateLabel")
+finish_attack_state_label = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/CombatStateRow/FinishAttackStateLabel")
+flinch_state_label = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/CombatStateRow/FlinchStateLabel")
+body_idle_state_label = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/BodyStateRow/BodyIdleState")
+body_moving_state_label = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/BodyStateRow/BodyMovingState")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1244891511]
 layout_mode = 1
@@ -92,7 +94,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.41568628, 0.41568628, 0.41568628, 1)
-text = "Animation State"
+text = "Root State"
 horizontal_alignment = 1
 
 [node name="HSeparator4" type="HSeparator" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=2118270242]
@@ -115,46 +117,86 @@ theme_override_colors/font_color = Color(0.41546753, 0.41546753, 0.41546753, 1)
 text = "CombatState"
 horizontal_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=616905520]
+[node name="DefaultStateRow" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=814197466]
+visible = false
 layout_mode = 2
 
-[node name="DefaultStateRow" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer" unique_id=814197466]
+[node name="DefaultIdleStateLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/DefaultStateRow" unique_id=1117575652]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Idle"
+horizontal_alignment = 1
+
+[node name="DefaultMovingStateLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/DefaultStateRow" unique_id=946614872]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Moving"
+horizontal_alignment = 1
+
+[node name="CombatStateRow" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1139218614]
 layout_mode = 2
 
-[node name="CombatStateRow" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer" unique_id=1139218614]
-layout_mode = 2
-
-[node name="ReadyStateLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/CombatStateRow" unique_id=1040925041]
+[node name="ReadyStateLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/CombatStateRow" unique_id=1040925041]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.41568628, 0.41568628, 0.41568628, 1)
 text = "Ready"
 horizontal_alignment = 1
 
-[node name="ChargeAttackStateLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/CombatStateRow" unique_id=445462454]
+[node name="ChargeAttackStateLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/CombatStateRow" unique_id=445462454]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.41568628, 0.41568628, 0.41568628, 1)
 text = "Charge"
 horizontal_alignment = 1
 
-[node name="ExecuteAttackStateLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/CombatStateRow" unique_id=313555653]
+[node name="ExecuteAttackStateLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/CombatStateRow" unique_id=313555653]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.41568628, 0.41568628, 0.41568628, 1)
 text = "Execute"
 horizontal_alignment = 1
 
-[node name="FinishAttackStateLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/CombatStateRow" unique_id=2047171034]
+[node name="FinishAttackStateLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/CombatStateRow" unique_id=2047171034]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.41568628, 0.41568628, 0.41568628, 1)
 text = "Finish"
 horizontal_alignment = 1
 
-[node name="FlinchStateLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/CombatStateRow" unique_id=533671221]
+[node name="FlinchStateLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/CombatStateRow" unique_id=533671221]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.41568628, 0.41568628, 0.41568628, 1)
 text = "Flinch"
+horizontal_alignment = 1
+
+[node name="HSeparator5" type="HSeparator" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=708258807]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1613444822]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.41568628, 0.41568628, 0.41568628, 1)
+text = "Body State"
+horizontal_alignment = 1
+
+[node name="HSeparator6" type="HSeparator" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1231453748]
+layout_mode = 2
+
+[node name="BodyStateRow" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=208147644]
+layout_mode = 2
+
+[node name="BodyIdleState" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/BodyStateRow" unique_id=466727031]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.41568628, 0.41568628, 0.41568628, 1)
+text = "Idle"
+horizontal_alignment = 1
+
+[node name="BodyMovingState" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/BodyStateRow" unique_id=267273072]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.41568628, 0.41568628, 0.41568628, 1)
+text = "Moving"
 horizontal_alignment = 1

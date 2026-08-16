@@ -270,8 +270,9 @@ script = ExtResource("3_cxnu7")
 anim_player = NodePath("../../AnimationPlayer")
 anim_tree = NodePath("../../AnimationTree")
 
-[node name="CombatComponent" type="Node" parent="ComponentRoot" unique_id=225979935]
+[node name="CombatComponent" type="Node" parent="ComponentRoot" unique_id=225979935 node_paths=PackedStringArray("combat_root")]
 script = ExtResource("4_0hq70")
+combat_root = NodePath("../../CombatRoot")
 metadata/_custom_type_script = "uid://cqwhiyul6y1c6"
 
 [node name="StateMachine" type="Node" parent="." unique_id=1959288494 node_paths=PackedStringArray("initial_state")]
@@ -304,7 +305,6 @@ libraries/short_sword = ExtResource("9_gqgbn")
 tree_root = ExtResource("7_pgotb")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
-parameters/RootState/CombatState/CombatReadyBlend/blend_position = Vector2(0, 0)
 parameters/BodyState/IdleBlend/blend_position = Vector2(0.99656355, 0.010309219)
 parameters/BodyState/MovingBlend/blend_position = Vector2(0, 0)
 parameters/Add2/add_amount = 0.0

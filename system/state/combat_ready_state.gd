@@ -36,7 +36,8 @@ func _update_animation_component() -> void:
 
 	super()
 
-	animation_component.travel_playback("combat", "CombatReadyBlend")
+	animation_component.travel_playback("combat", "CombatReadyState")
+
 
 
 

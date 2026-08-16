@@ -148,7 +148,6 @@ position = Vector2(0, -16)
 rotation = 0.6562438
 
 [node name="CombatSprite" parent="VisualRoot/CombatVisualRoot" index="0" unique_id=1361711463]
-position = Vector2(9.507475, -7.321741)
 rotation = -0.6562438
 
 [node name="BodyCollision" parent="." index="1" unique_id=835819827]
@@ -160,9 +159,6 @@ shape = SubResource("CapsuleShape2D_4ptr2")
 y_sort_enabled = true
 position = Vector2(0, -16)
 
-[node name="CombatSpriteRemote" parent="CombatRoot" index="0" unique_id=2039104834]
-position = Vector2(12, 0)
-
 [node name="InputComponent" type="Node" parent="ComponentRoot" parent_id_path=PackedInt32Array(1368647879) index="1" unique_id=1381166032]
 script = ExtResource("2_g1dw6")
 metadata/_custom_type_script = "uid://0rw6dqb77ahy"
@@ -171,7 +167,7 @@ metadata/_custom_type_script = "uid://0rw6dqb77ahy"
 libraries/player = SubResource("AnimationLibrary_qjkh3")
 
 [node name="AnimationTree" parent="." index="6" unique_id=2145901673]
-parameters/BodyState/IdleBlend/blend_position = Vector2(0.12886596, 0.25291824)
+parameters/BodyState/IdleBlend/blend_position = Vector2(0.6467135, -0.48870063)
 parameters/BodyState/MovingBlend/blend_position = Vector2(0.0017181635, 0.97783935)
 parameters/Add2/add_amount = 1.0
 

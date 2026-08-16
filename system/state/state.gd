@@ -9,6 +9,8 @@ var animation_component: AnimationComponent
 
 var movement_component: MovementComponent
 
+var allow_reenter:= false
+
 
 
 
@@ -82,11 +84,6 @@ func _update_animation_component() -> void:
 
 	pass
 
-
-
-func _update_facing_dir() -> void:
-
-	pass
 
 
 

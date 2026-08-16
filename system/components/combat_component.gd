@@ -3,6 +3,7 @@ class_name CombatComponent extends Component
 
 
 
+@export var combat_root: Node2D
 
 
 
@@ -15,6 +16,13 @@ var current_attack_index:= 0
 var current_library_name: String
 
 var current_animation_name: String
+
+
+
+
+var buffered:= false
+
+var buffer_enabled:= false
 
 
 
@@ -52,6 +60,20 @@ func _initialize(_entity: EntityNode) -> void:
 func reset() -> void:
 
 	_clear_attack_data()
+
+
+
+
+
+func enable_buffer() -> void:
+
+	buffer_enabled = true
+
+
+
+func disable_buffer() -> void:
+
+	buffer_enabled = false
 
 
 
@@ -104,6 +126,8 @@ func _start_attack() -> void:
 
 	attack_animation_node.animation = current_animation_name
 
+	_set_attack_dir()
+
 	_execute_attack()
 
 
@@ -130,8 +154,6 @@ func _complete_charge() -> void:
 
 func _execute_attack() -> void:
 
-	print("executing")
-
 	entity.state_machine.request_state(CombatAttackingState)
 
 
@@ -139,6 +161,18 @@ func _execute_attack() -> void:
 
 
 func _finish_attack() -> void:
+
+	buffer_enabled = false
+
+	if buffered:
+
+		buffered = false
+
+		current_attack_index += 1
+
+		_start_attack.call_deferred()
+
+		return
 
 	current_attack_index = 0
 
@@ -228,13 +262,29 @@ func _get_attack_animation_name() -> String:
 
 
 
+func _set_attack_dir() -> void:
+
+	current_attack_dir = Game.get_mouse_direction()
+
+	combat_root.rotation = current_attack_dir.angle()
+
+	
+
+
+
 
 
 func _handle_weapon_attack_input(pressed: bool) -> void:
 
-	if pressed and !_is_attacking():
+	if pressed:
 
-		_try_attack()
+		if !_is_attacking():
+
+			_try_attack()
+
+		elif buffer_enabled:
+
+			buffered = true
 
 
 

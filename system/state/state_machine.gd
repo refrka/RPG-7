@@ -87,7 +87,11 @@ func _change_state(new_state: State) -> void:
 
 	if current_state == new_state:
 
-		return
+		if current_state.allow_reenter:
+
+			current_state._enter()
+
+			return
 
 	if current_state:
 
