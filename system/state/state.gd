@@ -29,6 +29,12 @@ func get_state_script() -> Script:
 
 
 
+func get_state_name() -> String:
+
+	return name.trim_suffix("State")
+
+
+
 
 func transition(state_script: Script) -> void:
 

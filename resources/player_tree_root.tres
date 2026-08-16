@@ -141,7 +141,22 @@ states/End/position = Vector2(895, 100)
 states/Start/position = Vector2(202, 100)
 transitions = ["Start", "AttackAnimation", SubResource("AnimationNodeStateMachineTransition_45417"), "AttackAnimation", "End", SubResource("AnimationNodeStateMachineTransition_b58vy")]
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_u0le3"]
+animation = &"finish_attack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_w1xyq"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_165fu"]
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_41p0v"]
+states/finish_attack/node = SubResource("AnimationNodeAnimation_u0le3")
+states/finish_attack/position = Vector2(389.55554, 100.27161)
+transitions = ["Start", "finish_attack", SubResource("AnimationNodeStateMachineTransition_w1xyq"), "finish_attack", "End", SubResource("AnimationNodeStateMachineTransition_165fu")]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_fwru0"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_d4lem"]
 advance_mode = 2
@@ -154,16 +169,29 @@ advance_mode = 2
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5h1yr"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xl1rg"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8fkgh"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yk86c"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_f1ilf"]
 states/CombatReadyBlend/node = SubResource("AnimationNodeBlendSpace2D_d4lem")
 states/CombatReadyBlend/position = Vector2(371, 100)
+states/End/position = Vector2(978.8889, 99.62962)
 states/ExecuteAttackState/node = SubResource("AnimationNodeStateMachine_45417")
 states/ExecuteAttackState/position = Vector2(607, 197)
 states/FinishAttackState/node = SubResource("AnimationNodeStateMachine_41p0v")
 states/FinishAttackState/position = Vector2(371, 197)
-transitions = ["Start", "CombatReadyBlend", SubResource("AnimationNodeStateMachineTransition_d4lem"), "FinishAttackState", "CombatReadyBlend", SubResource("AnimationNodeStateMachineTransition_41p0v"), "ExecuteAttackState", "FinishAttackState", SubResource("AnimationNodeStateMachineTransition_fwru0")]
+states/FlinchState/node = SubResource("AnimationNodeStateMachine_fwru0")
+states/FlinchState/position = Vector2(607.12756, 21.999987)
+transitions = ["Start", "CombatReadyBlend", SubResource("AnimationNodeStateMachineTransition_d4lem"), "FinishAttackState", "CombatReadyBlend", SubResource("AnimationNodeStateMachineTransition_41p0v"), "ExecuteAttackState", "FinishAttackState", SubResource("AnimationNodeStateMachineTransition_fwru0"), "CombatReadyBlend", "ExecuteAttackState", SubResource("AnimationNodeStateMachineTransition_5h1yr"), "CombatReadyBlend", "FlinchState", SubResource("AnimationNodeStateMachineTransition_xl1rg"), "ExecuteAttackState", "FlinchState", SubResource("AnimationNodeStateMachineTransition_8fkgh"), "FlinchState", "CombatReadyBlend", SubResource("AnimationNodeStateMachineTransition_yk86c")]
+graph_offset = Vector2(12, -40)
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_5hcb3"]
+graph_offset = Vector2(-132, -120)
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f1ilf"]
 advance_mode = 2
@@ -181,7 +209,7 @@ states/Start/position = Vector2(147, 100)
 transitions = ["Start", "DefaultState", SubResource("AnimationNodeStateMachineTransition_f1ilf"), "DefaultState", "CombatState", SubResource("AnimationNodeStateMachineTransition_4ec8r"), "CombatState", "DefaultState", SubResource("AnimationNodeStateMachineTransition_kx6kr")]
 
 [resource]
-graph_offset = Vector2(-316.64224, 76.01062)
+graph_offset = Vector2(-102.81579, -29.563574)
 nodes/output/position = Vector2(680, 180)
 nodes/RootState/node = SubResource("AnimationNodeStateMachine_d4lem")
 nodes/RootState/position = Vector2(120, 420)

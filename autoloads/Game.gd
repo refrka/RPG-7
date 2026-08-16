@@ -2,6 +2,7 @@ extends Node
 
 
 
+
 enum GameState {
 
 	NULL,
@@ -40,7 +41,11 @@ func _ready() -> void:
 
 
 
+
+
 func start() -> void:
+
+	Events.fire(GameStartingEvent)
 
 	player._initialize()
 
@@ -56,12 +61,16 @@ func start() -> void:
 
 	_change_state(GameState.ACTIVE)
 
+	Events.fire(GameStartedEvent)
+
 
 
 
 
 
 func exit() -> void:
+
+	Events.fire(GameExitingEvent)
 
 	last_save_dict = {}
 
@@ -70,6 +79,8 @@ func exit() -> void:
 	player._reset()
 
 	_change_state(GameState.MAIN_MENU)
+
+	Events.fire(GameExitedEvent)
 
 
 

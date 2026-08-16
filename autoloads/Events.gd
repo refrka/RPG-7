@@ -13,6 +13,8 @@ func _ready() -> void:
 
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
+	subscribe(GameExitedEvent, _on_game_exited)
+
 
 
 
@@ -43,3 +45,29 @@ func fire(event_script: Script, _data:= {}) -> void:
 	for callback in subscriptions[event_script]:
 
 		callback.call(event)
+
+
+
+
+
+
+func _clear_game_subscriptions() -> void:
+
+	for event_script in subscriptions:
+
+		if event_script.get_base_script() == GameEvent:
+
+			subscriptions.erase(event_script)
+
+
+
+
+
+
+
+
+
+
+func _on_game_exited(_event: Event) -> void:
+
+	_clear_game_subscriptions()

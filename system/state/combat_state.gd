@@ -18,6 +18,11 @@ func _initialize(_entity: EntityNode) -> void:
 
 
 
+
+
+
 func _update_animation_component() -> void:
 
-	pass
+	if animation_component.get_playback_current_node("root") != "CombatState":
+
+		animation_component.travel_playback("root", "CombatState")

@@ -74,24 +74,13 @@ func _reset() -> void:
 
 
 
-func get_all_components() -> Array[Component]:
+func receive_damage_package(damage_package: DamagePackage) -> void:
 
-	return component_root.get_children() as Array[Component]
+	var health_component = get_component(HealthComponent)
 
+	if health_component:
 
-
-
-
-func get_component(component_script: Script) -> Component:
-
-	for component in get_all_components():
-
-		if component.get_component_script() == component_script:
-
-			return component
-
-	return null
-
+		health_component.receive_damage_package(damage_package)
 
 
 
@@ -110,6 +99,31 @@ func is_moving() -> bool:
 
 
 
+
+
+
+
+
+
+
+
+func get_all_components() -> Array[Component]:
+
+	return component_root.get_children() as Array[Component]
+
+
+
+
+
+func get_component(component_script: Script) -> Component:
+
+	for component in get_all_components():
+
+		if component.get_component_script() == component_script:
+
+			return component
+
+	return null
 
 
 

@@ -2,7 +2,7 @@ class_name DamagePackage extends Resource
 
 
 
-@export var entries: Array[DamageEntry]
+@export var damage_entries: Array[DamageEntry]
 
 
 
@@ -13,4 +13,4 @@ class_name DamagePackage extends Resource
 
 func add_damage_entry(entry: DamageEntry) -> void:
 
-	entries.append(entry)
+	damage_entries.append(entry)

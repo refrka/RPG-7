@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://chv1xccb1hfcw"]
 
 [ext_resource type="Script" uid="uid://bxo1ne0t8lvud" path="res://entity/character_node.gd" id="1_ufg3e"]
+[ext_resource type="PackedScene" uid="uid://b0y03senpcrqt" path="res://system/combat/hitbox.tscn" id="2_22lai"]
 [ext_resource type="Script" uid="uid://csb2nq81ql46s" path="res://system/components/movement_component.gd" id="2_mbyps"]
 [ext_resource type="Script" uid="uid://crkc2pxqnmmy0" path="res://system/components/animation_component.gd" id="3_cxnu7"]
 [ext_resource type="Script" uid="uid://cqwhiyul6y1c6" path="res://system/components/combat_component.gd" id="4_0hq70"]
@@ -10,6 +11,8 @@
 [ext_resource type="AnimationNodeBlendTree" uid="uid://pppixbgfmexx" path="res://resources/player_tree_root.tres" id="7_pgotb"]
 [ext_resource type="Script" uid="uid://d2q0typy8hlfk" path="res://system/state/combat_ready_state.gd" id="8_t1wp5"]
 [ext_resource type="AnimationLibrary" uid="uid://f1nqfhovo640" path="res://item/equipment/weapons/melee/short_sword_library.res" id="9_gqgbn"]
+[ext_resource type="Script" uid="uid://cm5pb6abodo00" path="res://system/state/combat_attacking_state.gd" id="10_udydy"]
+[ext_resource type="Script" uid="uid://7630ld86p1cj" path="res://system/state/combat_flinch_state.gd" id="11_me77t"]
 
 [sub_resource type="Animation" id="Animation_0hq70"]
 length = 0.001
@@ -254,6 +257,8 @@ y_sort_enabled = true
 [node name="CombatSpriteRemote" type="RemoteTransform2D" parent="CombatRoot" unique_id=2039104834]
 remote_path = NodePath("../../VisualRoot/CombatVisualRoot/CombatSprite")
 
+[node name="CombatHitbox" parent="CombatRoot" unique_id=1528857398 instance=ExtResource("2_22lai")]
+
 [node name="ComponentRoot" type="Node" parent="." unique_id=1368647879]
 
 [node name="MovementComponent" type="Node" parent="ComponentRoot" unique_id=1807536729]
@@ -284,6 +289,13 @@ metadata/_custom_type_script = "uid://degrg3rwbb0jw"
 [node name="CombatReadyState" type="Node" parent="StateMachine" unique_id=425187733]
 script = ExtResource("8_t1wp5")
 
+[node name="CombatFlinchState" type="Node" parent="StateMachine" unique_id=2011122971]
+script = ExtResource("11_me77t")
+
+[node name="CombatAttackingState" type="Node" parent="StateMachine" unique_id=395598698]
+script = ExtResource("10_udydy")
+metadata/_custom_type_script = "uid://cm5pb6abodo00"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1826499380]
 libraries/ = SubResource("AnimationLibrary_0rdkl")
 libraries/short_sword = ExtResource("9_gqgbn")
@@ -296,3 +308,5 @@ parameters/RootState/CombatState/CombatReadyBlend/blend_position = Vector2(0, 0)
 parameters/BodyState/IdleBlend/blend_position = Vector2(0.99656355, 0.010309219)
 parameters/BodyState/MovingBlend/blend_position = Vector2(0, 0)
 parameters/Add2/add_amount = 0.0
+
+[editable path="CombatRoot/CombatHitbox"]

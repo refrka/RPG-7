@@ -29,6 +29,8 @@ var connected:= false
 
 func _activate() -> void:
 
+	active = true
+
 	show()
 
 	if !connected:
@@ -39,6 +41,8 @@ func _activate() -> void:
 
 
 func _deactivate() -> void:
+
+	active = false
 
 	hide()
 

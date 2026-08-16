@@ -57,6 +57,14 @@ func reset() -> void:
 
 
 
+func receive_damage_package(damage_package: DamagePackage) -> void:
+
+	if _is_attacking():
+
+		_interrupt_attack()
+
+
+
 
 
 func get_attack_entry(index:= -1) -> AttackEntry:
@@ -82,7 +90,7 @@ func _try_attack() -> void:
 
 		_enter_combat()
 
-	if !_is_attack_index_valid(current_attack_index):
+	if _is_attack_index_valid(current_attack_index):
 
 		_start_attack()
 
@@ -101,7 +109,28 @@ func _start_attack() -> void:
 
 
 
+func _start_charge() -> void:
+
+	pass
+
+
+
+func _cancel_charge() -> void:
+
+	pass
+
+
+
+func _complete_charge() -> void:
+
+	pass
+
+
+
+
 func _execute_attack() -> void:
+
+	print("executing")
 
 	entity.state_machine.request_state(CombatAttackingState)
 
@@ -118,6 +147,13 @@ func _finish_attack() -> void:
 	current_attack_dir = Vector2.ZERO
 
 	entity.state_machine.request_state(CombatReadyState)
+
+
+
+
+func _interrupt_attack() -> void:
+
+	pass
 
 
 

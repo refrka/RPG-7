@@ -32,6 +32,14 @@ func _exit() -> void:
 
 
 
+func _update_animation_component() -> void:
+
+	super()
+
+	animation_component.travel_playback("combat", "CombatReadyBlend")
+
+
+
 
 
 func _tick(delta: float) -> void:
@@ -42,4 +50,10 @@ func _tick(delta: float) -> void:
 
 		if ready_timer <= 0.0:
 
-			transition(IdleState)
+			if movement_component.is_moving():
+
+				transition(MovingState)
+
+			else:
+
+				transition(IdleState)

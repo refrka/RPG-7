@@ -2,6 +2,10 @@ class_name AnimationComponent extends Component
 
 
 
+signal playback_state_changed(playback_name: String, node_name: String)
+
+
+
 @export var anim_player: AnimationPlayer
 
 @export var anim_tree: AnimationTree
@@ -12,7 +16,9 @@ var playback_paths:= {
 
 	"root": "parameters/RootState/playback",
 
-	"body": "parameters/BodyState/playback"
+	"body": "parameters/BodyState/playback",
+
+	"combat": "parameters/RootState/CombatState/playback"
 
 }
 
@@ -47,6 +53,10 @@ func travel_playback(playback_name: String, node_name: String) -> void:
 
 		playback.travel(node_name)
 
+		playback.start(node_name)
+		
+		playback_state_changed.emit(playback_name, node_name)
+
 
 
 
@@ -58,6 +68,15 @@ func set_blendspace_vector(blendspace_name: String, vector: Vector2) -> void:
 		var path = blendspace_paths[blendspace_name]
 
 		anim_tree.set(path, vector)
+
+
+
+
+func get_playback_current_node(playback_name: String) -> String:
+
+	var playback = _get_playback(playback_name)
+
+	return playback.get_current_node()
 
 
 
@@ -90,5 +109,6 @@ func _get_playback(playback_name: String) -> AnimationNodeStateMachinePlayback:
 		return anim_tree.get(path)
 
 	return null
+
 
 
