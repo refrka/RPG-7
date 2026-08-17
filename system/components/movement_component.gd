@@ -17,6 +17,8 @@ var move_dir:= Vector2.ZERO
 
 var face_dir:= Vector2.RIGHT
 
+var move_speed_override:= -1.0
+
 
 
 var can_move:= true
@@ -71,6 +73,8 @@ func halt() -> void:
 
 	current_move_velocity = Vector2.ZERO
 
+	move_dir = Vector2.ZERO
+
 	move_ended.emit()
 
 	animation_component.travel_playback("body", "IdleBlend")
@@ -79,6 +83,10 @@ func halt() -> void:
 
 
 func get_move_speed() -> float:
+
+	if move_speed_override != -1.0:
+
+		return move_speed_override
 
 	var speed = entity.get_entity_def().move_speed
 
@@ -116,6 +124,8 @@ func set_face_dir(dir: Vector2) -> void:
 	animation_component.set_blendspace_vector("moving", face_dir)
 
 	animation_component.set_blendspace_vector("idle", face_dir)
+
+	print("setting vector in dir: ", dir)
 
 
 
@@ -183,13 +193,13 @@ func _physics_process(delta: float) -> void:
 
 	if can_move:
 
-		if current_move_velocity == Vector2.ZERO and current_move_velocity != Vector2.ZERO:
+		if current_move_velocity == Vector2.ZERO and current_input_velocity != Vector2.ZERO:
 
 			move_started.emit()
 		
 			animation_component.travel_playback("body", "MovingBlend")
 
-		if current_move_velocity != Vector2.ZERO and current_move_velocity == Vector2.ZERO:
+		if current_move_velocity != Vector2.ZERO and current_input_velocity == Vector2.ZERO:
 
 			move_ended.emit()
 		

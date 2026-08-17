@@ -19,3 +19,4 @@ class_name ItemDef extends Resource
 @export var body_collision_shape: Shape2D
 
 @export var body_collision_position: Vector2
+

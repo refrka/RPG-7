@@ -2,16 +2,22 @@
 
 [ext_resource type="Script" uid="uid://djol75msvci13" path="res://entity/projectile_node.gd" id="1_s1i3m"]
 [ext_resource type="PackedScene" uid="uid://b2mtayx10mrnt" path="res://system/combat/hurtbox.tscn" id="1_vq2qw"]
+[ext_resource type="Script" uid="uid://bcuhppit01mrv" path="res://entity/object_def.gd" id="2_vq2qw"]
 [ext_resource type="PackedScene" uid="uid://b0y03senpcrqt" path="res://system/combat/hitbox.tscn" id="2_wnamx"]
 [ext_resource type="Script" uid="uid://csb2nq81ql46s" path="res://system/components/movement_component.gd" id="3_u6vob"]
 [ext_resource type="Script" uid="uid://crkc2pxqnmmy0" path="res://system/components/animation_component.gd" id="4_f7vj5"]
-[ext_resource type="Script" uid="uid://cqwhiyul6y1c6" path="res://system/components/combat_component.gd" id="5_ncm1t"]
 [ext_resource type="Script" uid="uid://vhbxuxsy7lew" path="res://system/state/state_machine.gd" id="6_dqxeu"]
 [ext_resource type="Script" uid="uid://mxqkgj01obtw" path="res://system/state/idle_state.gd" id="7_oekoj"]
 [ext_resource type="Script" uid="uid://umkee4arr7c1" path="res://system/components/projectile_component.gd" id="7_yqylt"]
 [ext_resource type="Script" uid="uid://degrg3rwbb0jw" path="res://system/state/moving_state.gd" id="8_t33xu"]
 [ext_resource type="AnimationLibrary" uid="uid://f1nqfhovo640" path="res://item/equipment/weapons/melee/short_sword_library.res" id="12_1hc13"]
-[ext_resource type="AnimationNodeBlendTree" uid="uid://pppixbgfmexx" path="res://resources/player_tree_root.tres" id="13_k6yjy"]
+
+[sub_resource type="Resource" id="Resource_mfd54"]
+script = ExtResource("2_vq2qw")
+entity_id = &"projectle"
+display_name = &"Projectile"
+base_max_health = 1.0
+metadata/_custom_type_script = "uid://bcuhppit01mrv"
 
 [sub_resource type="Animation" id="Animation_0hq70"]
 length = 0.001
@@ -227,20 +233,6 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_pgotb"]
 resource_name = "finish_attack"
 length = 0.05
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ComponentRoot/CombatComponent")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.001),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"_finish_attack"
-}]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ik0on"]
 _data = {
@@ -253,7 +245,10 @@ _data = {
 }
 
 [node name="ProjectileNode" type="CharacterBody2D" unique_id=1999708757 node_paths=PackedStringArray("body_sprite", "body_collision", "body_hurtbox", "combat_hitbox", "component_root", "state_machine")]
+collision_layer = 4
+collision_mask = 0
 script = ExtResource("1_s1i3m")
+entity_def = SubResource("Resource_mfd54")
 body_sprite = NodePath("VisualRoot/BodySprite")
 body_collision = NodePath("BodyCollision")
 body_hurtbox = NodePath("BodyHurtbox")
@@ -265,7 +260,6 @@ state_machine = NodePath("StateMachine")
 y_sort_enabled = true
 
 [node name="BodySprite" type="Sprite2D" parent="VisualRoot" unique_id=44914441]
-hframes = 2
 
 [node name="CombatVisualRoot" type="Node2D" parent="VisualRoot" unique_id=1965833067]
 y_sort_enabled = true
@@ -300,12 +294,10 @@ script = ExtResource("4_f7vj5")
 anim_player = NodePath("../../AnimationPlayer")
 anim_tree = NodePath("../../AnimationTree")
 
-[node name="CombatComponent" type="Node" parent="ComponentRoot" unique_id=1753406836]
-script = ExtResource("5_ncm1t")
-metadata/_custom_type_script = "uid://cqwhiyul6y1c6"
-
-[node name="ProjectileComponent" type="Node" parent="ComponentRoot" unique_id=987543241]
+[node name="ProjectileComponent" type="Node" parent="ComponentRoot" unique_id=987543241 node_paths=PackedStringArray("combat_hitbox", "screen_notifier")]
 script = ExtResource("7_yqylt")
+combat_hitbox = NodePath("../../CombatRoot/CombatHitbox")
+screen_notifier = NodePath("../../VisibleOnScreenNotifier2D")
 
 [node name="StateMachine" type="Node" parent="." unique_id=1595141795 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("6_dqxeu")
@@ -324,12 +316,11 @@ libraries/ = SubResource("AnimationLibrary_ik0on")
 libraries/short_sword = ExtResource("12_1hc13")
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=1214924200]
-tree_root = ExtResource("13_k6yjy")
+active = false
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
-parameters/BodyState/IdleBlend/blend_position = Vector2(0.99656355, 0.010309219)
-parameters/BodyState/MovingBlend/blend_position = Vector2(0, 0)
-parameters/Add2/add_amount = 0.0
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=416238933]
 
 [editable path="BodyHurtbox"]
 [editable path="CombatRoot/CombatHitbox"]

@@ -14,7 +14,13 @@ metadata/_custom_type_script = "uid://beq8s2yux5k74"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VisionSensor" index="0" unique_id=144612384]
 debug_color = Color(0.63, 0.7, 0, 0.019607844)
 
-[node name="TurretComponent" type="Node" parent="ComponentRoot" parent_id_path=PackedInt32Array(1325195692) index="1" unique_id=841611543]
+[node name="TurretOriginNode" type="Node2D" parent="." index="4" unique_id=1445454600]
+
+[node name="Marker2D" type="Marker2D" parent="TurretOriginNode" index="0" unique_id=1913092370]
+position = Vector2(24, 0)
+
+[node name="TurretComponent" type="Node" parent="ComponentRoot" parent_id_path=PackedInt32Array(1325195692) index="1" unique_id=841611543 node_paths=PackedStringArray("origin_node")]
 script = ExtResource("2_ywebw")
+origin_node = NodePath("../../TurretOriginNode")
 
 [editable path="BodyHurtbox"]

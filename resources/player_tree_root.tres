@@ -2,7 +2,7 @@
 
 [sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_d4lem"]
 filter_enabled = true
-filters = ["VisualRoot/BodySprite:flip_h", "VisualRoot/BodySprite:frame"]
+filters = [".", "ComponentRoot/CombatComponent", "VisualRoot/BodySprite:frame"]
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_41p0v"]
 
@@ -34,6 +34,7 @@ animation = &"face_up_left"
 animation = &"face_down_right"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_1x5a2"]
+blend_mode = 1
 blend_point_0/node = SubResource("AnimationNodeAnimation_d4lem")
 blend_point_0/pos = Vector2(0, 1)
 blend_point_0/name = &"face_down_right"
@@ -212,7 +213,7 @@ states/Start/position = Vector2(147, 100)
 transitions = ["Start", "DefaultState", SubResource("AnimationNodeStateMachineTransition_f1ilf"), "DefaultState", "CombatState", SubResource("AnimationNodeStateMachineTransition_4ec8r"), "CombatState", "DefaultState", SubResource("AnimationNodeStateMachineTransition_kx6kr")]
 
 [resource]
-graph_offset = Vector2(-153.67094, 35.528057)
+graph_offset = Vector2(-118.65874, 117.82068)
 nodes/output/position = Vector2(680, 180)
 nodes/RootState/node = SubResource("AnimationNodeStateMachine_d4lem")
 nodes/RootState/position = Vector2(155.55556, 177.77779)

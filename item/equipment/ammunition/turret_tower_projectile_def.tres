@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ProjectileDef" format=3 uid="uid://du886dcyfkh3d"]
+
+[ext_resource type="Script" uid="uid://dpo3me576rhh6" path="res://system/combat/attack_entry.gd" id="1_l0mt6"]
+[ext_resource type="Texture2D" uid="uid://j85hp4clbsyf" path="res://item/equipment/ammunition/turret_tower_projectile_sprite.png" id="1_r43aj"]
+[ext_resource type="Script" uid="uid://cep72nn26l4d0" path="res://item/projectile_def.gd" id="2_r43aj"]
+
+[sub_resource type="Resource" id="Resource_yqylt"]
+script = ExtResource("1_l0mt6")
+metadata/_custom_type_script = "uid://dpo3me576rhh6"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_808sn"]
+size = Vector2(5, 2)
+
+[resource]
+script = ExtResource("2_r43aj")
+attack_entry = SubResource("Resource_yqylt")
+hitbox_collision_shape = SubResource("RectangleShape2D_808sn")
+hitbox_collision_position = Vector2(3.5, 0)
+icon_texture = ExtResource("1_r43aj")
+body_sprite_texture = ExtResource("1_r43aj")
+metadata/_custom_type_script = "uid://b07k8ytpwn6c6"

@@ -19,14 +19,21 @@ class_name EntityNode extends PhysicsBody2D
 @export var state_machine: StateMachine
 
 
+@export var visuals_flipped:= false:
+
+	set(value):
+
+		visuals_flipped = value
+
+		body_sprite.flip_h = value
+
+
 
 var active:= false
 
 var initialized:= false
 
 var inventory: Inventory
-
-
 
 
 
@@ -103,6 +110,9 @@ func receive_damage_package(damage_package: DamagePackage) -> void:
 
 
 
+func flip_visuals(state: bool) -> void:
+
+	visuals_flipped = state
 
 
 

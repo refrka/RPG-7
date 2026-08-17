@@ -35,6 +35,16 @@ var blendspace_paths:= {
 
 
 
+func _initialize(_entity: EntityNode) -> void:
+
+	super(_entity)
+
+	reset()
+
+
+
+
+
 func reset() -> void:
 
 	for path in blendspace_paths.values():

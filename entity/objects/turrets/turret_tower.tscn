@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://d25shj3da4uck" path="res://entity/turret_node.tscn" id="1_cdgia"]
 [ext_resource type="Texture2D" uid="uid://djp6c5s1eh0ot" path="res://entity/objects/turrets/turret_tower_sprite.png" id="2_fixcq"]
 [ext_resource type="Script" uid="uid://bcuhppit01mrv" path="res://entity/object_def.gd" id="2_lyvgt"]
+[ext_resource type="Resource" uid="uid://du886dcyfkh3d" path="res://item/equipment/ammunition/turret_tower_projectile_def.tres" id="4_lyvgt"]
 
 [sub_resource type="Resource" id="Resource_cdgia"]
 script = ExtResource("2_lyvgt")
@@ -54,5 +55,16 @@ debug_color = Color(0.71, 0, 0.1775, 0.078431375)
 
 [node name="CollisionShape2D" parent="VisionSensor" parent_id_path=PackedInt32Array(942755490) index="0" unique_id=144612384]
 shape = SubResource("CircleShape2D_mfd54")
+
+[node name="TurretOriginNode" parent="." index="4" unique_id=1445454600]
+position = Vector2(0, -31)
+
+[node name="AnimationComponent" parent="ComponentRoot" parent_id_path=PackedInt32Array(1325195692) index="0" unique_id=823237255 node_paths=PackedStringArray("anim_player", "anim_tree")]
+anim_player = NodePath("../../AnimationPlayer")
+anim_tree = NodePath("../../AnimationTree")
+
+[node name="TurretComponent" parent="ComponentRoot" parent_id_path=PackedInt32Array(1325195692) index="1" unique_id=841611543]
+projectile_def = ExtResource("4_lyvgt")
+projectile_speed = 600.0
 
 [editable path="BodyHurtbox"]

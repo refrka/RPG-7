@@ -64,6 +64,10 @@ func add_entity_node(entity_node: EntityNode, target_pos: Vector2) -> void:
 
 	entity_node.global_position = target_pos
 
+	if !entity_node.initialized:
+
+		entity_node._initialize()
+
 	if active:
 
 		entity_node._activate()

@@ -239,6 +239,21 @@ func get_mouse_direction(origin_entity: EntityNode = null) -> Vector2:
 
 
 
+func get_location() -> Location:
+
+	return Scenes.get_active_location()
+
+
+
+
+func get_timer(duration: float) -> SceneTreeTimer:
+
+	var timer = get_tree().create_timer(duration)
+
+	return timer
+
+
+
 
 func _change_state(new_state: GameState) -> void:
 

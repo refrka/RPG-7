@@ -2,10 +2,11 @@
 
 [ext_resource type="Script" uid="uid://c7v0sn6jl7mtn" path="res://system/combat/hurtbox.gd" id="1_grt57"]
 
-[node name="Hurtbox" type="Area2D" unique_id=47728303]
+[node name="Hurtbox" type="Area2D" unique_id=47728303 node_paths=PackedStringArray("collision_shape")]
 collision_layer = 512
 collision_mask = 256
 script = ExtResource("1_grt57")
+collision_shape = NodePath("CollisionShape2D")
 metadata/_custom_type_script = "uid://c7v0sn6jl7mtn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=273920194]

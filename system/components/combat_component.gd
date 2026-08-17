@@ -290,13 +290,7 @@ func _get_damage_package() -> DamagePackage:
 
 	var attack_entry = get_attack_entry()
 
-	var damage_package = DamagePackage.new()
-
-	var damage_entry = DamageEntry.new()
-
-	damage_entry.amount = attack_entry.get_damage_roll()
-
-	damage_package.add_damage_entry(damage_entry)
+	var damage_package = DamagePackage.from_attack_entry(attack_entry)
 
 	return damage_package
 
