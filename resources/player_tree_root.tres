@@ -4,64 +4,64 @@
 filter_enabled = true
 filters = [".", "ComponentRoot/CombatComponent", "VisualRoot/BodySprite:frame"]
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w1xyq"]
+animation = &"player/flinch_down_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_165fu"]
+animation = &"player/flinch_down_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7rq6p"]
+animation = &"player/flinch_down_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6l0j2"]
+animation = &"player/flinch_down_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1hnj1"]
+animation = &"player/flinch_up_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uxk3c"]
+animation = &"player/flinch_up_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_muguj"]
+animation = &"player/flinch_up_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hglmj"]
+animation = &"player/flinch_down_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mf8pr"]
+animation = &"player/flinch_down_right"
+
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_41p0v"]
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d4lem"]
-animation = &"face_down_right"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ocvg2"]
-animation = &"face_up_right"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5hcb3"]
-animation = &"face_down_right"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f1ilf"]
-animation = &"face_down_left"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4ec8r"]
-animation = &"face_down_left"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kx6kr"]
-animation = &"face_down_right"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tlwoq"]
-animation = &"face_up_right"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0spva"]
-animation = &"face_up_left"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y777p"]
-animation = &"face_down_right"
+blend_point_0/node = SubResource("AnimationNodeAnimation_w1xyq")
+blend_point_0/pos = Vector2(0, 0)
+blend_point_0/name = &"player_flinch_down_right"
+blend_point_1/node = SubResource("AnimationNodeAnimation_165fu")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_1/name = &"player_flinch_down_right 2"
+blend_point_2/node = SubResource("AnimationNodeAnimation_7rq6p")
+blend_point_2/pos = Vector2(0, 1)
+blend_point_2/name = &"player_move_down_right"
+blend_point_3/node = SubResource("AnimationNodeAnimation_6l0j2")
+blend_point_3/pos = Vector2(-1, 0)
+blend_point_3/name = &"player_flinch_down_left"
+blend_point_4/node = SubResource("AnimationNodeAnimation_1hnj1")
+blend_point_4/pos = Vector2(0, -1)
+blend_point_4/name = &"player_flinch_up_right"
+blend_point_5/node = SubResource("AnimationNodeAnimation_uxk3c")
+blend_point_5/pos = Vector2(1, -1)
+blend_point_5/name = &"player_flinch_up_right 2"
+blend_point_6/node = SubResource("AnimationNodeAnimation_muguj")
+blend_point_6/pos = Vector2(-1, -1)
+blend_point_6/name = &"player_flinch_up_left"
+blend_point_7/node = SubResource("AnimationNodeAnimation_hglmj")
+blend_point_7/pos = Vector2(-1, 1)
+blend_point_7/name = &"player_flinch_down_left 2"
+blend_point_8/node = SubResource("AnimationNodeAnimation_mf8pr")
+blend_point_8/pos = Vector2(1, 1)
+blend_point_8/name = &"player_flinch_down_right 3"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_1x5a2"]
 blend_mode = 1
-blend_point_0/node = SubResource("AnimationNodeAnimation_d4lem")
-blend_point_0/pos = Vector2(0, 1)
-blend_point_0/name = &"face_down_right"
-blend_point_1/node = SubResource("AnimationNodeAnimation_ocvg2")
-blend_point_1/pos = Vector2(0, -1)
-blend_point_1/name = &"face_up_right"
-blend_point_2/node = SubResource("AnimationNodeAnimation_5hcb3")
-blend_point_2/pos = Vector2(1, 0)
-blend_point_2/name = &"face_down_right 2"
-blend_point_3/node = SubResource("AnimationNodeAnimation_f1ilf")
-blend_point_3/pos = Vector2(-1, 0)
-blend_point_3/name = &"face_down_left"
-blend_point_4/node = SubResource("AnimationNodeAnimation_4ec8r")
-blend_point_4/pos = Vector2(-1, 1)
-blend_point_4/name = &"face_down_left 2"
-blend_point_5/node = SubResource("AnimationNodeAnimation_kx6kr")
-blend_point_5/pos = Vector2(1, 1)
-blend_point_5/name = &"face_down_right 3"
-blend_point_6/node = SubResource("AnimationNodeAnimation_tlwoq")
-blend_point_6/pos = Vector2(1, -1)
-blend_point_6/name = &"face_up_right 2"
-blend_point_7/node = SubResource("AnimationNodeAnimation_0spva")
-blend_point_7/pos = Vector2(-1, -1)
-blend_point_7/name = &"face_up_left"
-blend_point_8/node = SubResource("AnimationNodeAnimation_y777p")
-blend_point_8/pos = Vector2(0, 0)
-blend_point_8/name = &"face_down_right 4"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_41p0v"]
 animation = &"player/move_down_right"
@@ -126,6 +126,8 @@ advance_mode = 2
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7rq6p"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6l0j2"]
+switch_mode = 2
+advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ocvg2"]
 states/FlinchBlend/node = SubResource("AnimationNodeBlendSpace2D_41p0v")
@@ -213,7 +215,7 @@ states/Start/position = Vector2(147, 100)
 transitions = ["Start", "DefaultState", SubResource("AnimationNodeStateMachineTransition_f1ilf"), "DefaultState", "CombatState", SubResource("AnimationNodeStateMachineTransition_4ec8r"), "CombatState", "DefaultState", SubResource("AnimationNodeStateMachineTransition_kx6kr")]
 
 [resource]
-graph_offset = Vector2(-118.65874, 117.82068)
+graph_offset = Vector2(-194.43028, 166.02788)
 nodes/output/position = Vector2(680, 180)
 nodes/RootState/node = SubResource("AnimationNodeStateMachine_d4lem")
 nodes/RootState/position = Vector2(155.55556, 177.77779)

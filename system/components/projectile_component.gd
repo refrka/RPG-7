@@ -27,9 +27,15 @@ func _initialize(_entity: EntityNode) -> void:
 
 
 
+
+
+
+
+
 func _on_projectile_exited_screen() -> void:
 
 	entity.queue_free.call_deferred()
+
 
 
 
@@ -43,13 +49,20 @@ func _on_hit_detected(target_entity: EntityNode) -> void:
 
 	target_entity.receive_damage_package(damage_package)
 
+	target_entity.add_projectile_temp_visual(entity)
+
+	entity.stuck_entity = target_entity
+
 	movement_component.halt()
+
+	entity.state_machine.request_state(StickingToEntityState)
 	
+
 
 
 func _on_move_ended() -> void:
 
-	await Game.get_timer(0.1).timeout
+	await Game.get_timer(2.5).timeout
 
-	entity.queue_free.call_deferred()
+	# entity.queue_free.call_deferred()
 

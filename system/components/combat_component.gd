@@ -7,6 +7,8 @@ class_name CombatComponent extends Component
 
 var combat_hitbox: Hitbox
 
+var movement_component: MovementComponent
+
 
 var current_attack_config: AttackConfig
 
@@ -39,6 +41,8 @@ func _initialize(_entity: EntityNode) -> void:
 	super(_entity)
 
 	combat_hitbox = entity.combat_hitbox
+
+	movement_component = entity.get_component(MovementComponent)
 
 	var input_component = entity.get_component(InputComponent)
 
@@ -301,6 +305,10 @@ func _set_attack_dir() -> void:
 	current_attack_dir = Game.get_mouse_direction()
 
 	combat_root.rotation = current_attack_dir.angle()
+
+	print("setting attack dir: ", current_attack_dir)
+
+	movement_component.set_face_dir(current_attack_dir)
 
 	
 

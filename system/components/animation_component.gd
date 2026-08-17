@@ -29,6 +29,8 @@ var blendspace_paths:= {
 
 	"idle": "parameters/BodyState/IdleBlend/blend_position",
 
+	"flinch": "parameters/BodyState/FlinchBlend/blend_position",
+
 }
 
 
@@ -63,10 +65,18 @@ func travel_playback(playback_name: String, node_name: String) -> void:
 
 		playback.travel(node_name)
 
-		playback.start(node_name)
+		start_playback(playback_name, node_name)
 		
 		playback_state_changed.emit(playback_name, node_name)
 
+
+
+
+func start_playback(playback_name: String, node_name: String) -> void:
+
+	var playback = _get_playback(playback_name)
+
+	playback.start(node_name)
 
 
 

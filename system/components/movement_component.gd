@@ -125,7 +125,11 @@ func set_face_dir(dir: Vector2) -> void:
 
 	animation_component.set_blendspace_vector("idle", face_dir)
 
-	print("setting vector in dir: ", dir)
+	animation_component.set_blendspace_vector("flinch", face_dir)
+
+	if is_moving():
+
+		animation_component.start_playback("body", "MovingBlend")
 
 
 
@@ -189,7 +193,9 @@ func _physics_process(delta: float) -> void:
 
 		current_input_velocity = move_dir * get_move_speed()
 
-		set_face_dir(move_dir)
+		if move_dir != Vector2.ZERO and move_dir != face_dir:
+
+			set_face_dir(move_dir)
 
 	if can_move:
 

@@ -57,4 +57,12 @@ func _update_animation_component() -> void:
 
 	animation_component.travel_playback("combat", "ExecuteAttackState")
 
+	if movement_component.is_moving():
+
+		animation_component.start_playback("body", "MovingBlend")
+
+	else:
+
+		animation_component.start_playback("body", "IdleBlend")
+
 

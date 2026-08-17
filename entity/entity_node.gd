@@ -18,6 +18,7 @@ class_name EntityNode extends PhysicsBody2D
 
 @export var state_machine: StateMachine
 
+@export var temp_visual_root: Node2D
 
 @export var visuals_flipped:= false:
 
@@ -29,11 +30,16 @@ class_name EntityNode extends PhysicsBody2D
 
 
 
+
+
+
 var active:= false
 
 var initialized:= false
 
 var inventory: Inventory
+
+
 
 
 
@@ -107,12 +113,76 @@ func receive_damage_package(damage_package: DamagePackage) -> void:
 
 		health_component.receive_damage_package(damage_package)
 
+	var animation_component = get_component(AnimationComponent)
+
+	animation_component.travel_playback("body", "FlinchBlend")
 
 
 
-func flip_visuals(state: bool) -> void:
+func set_visuals_orientation(dir: Vector2) -> void:
 
-	visuals_flipped = state
+	var state = dir.x < 0.0
+
+	var y_dir:= 0
+
+	y_dir = 1 if dir.y > 0.0 else -1
+
+	flip_visuals(state, y_dir)
+
+
+
+
+
+func flip_visuals(state: bool, y_dir: int) -> void:
+
+	if temp_visual_root:
+
+		for base_node in temp_visual_root.get_children():
+
+			var temp_entity = base_node.get_child(0)
+
+			temp_entity.flip_visuals(state)
+
+	if y_dir == -1:
+
+		body_sprite.frame = 1
+
+	elif y_dir == 1:
+
+		body_sprite.frame = 0
+
+	if visuals_flipped == state:
+
+		return
+
+	visuals_flipped = state 
+
+				
+
+
+
+
+
+func add_projectile_temp_visual(projectile_node: ProjectileNode) -> void:
+
+	var projectile_base_node = Node2D.new()
+
+	temp_visual_root.add_child(projectile_base_node)
+
+	projectile_base_node.position = Vector2.ZERO
+
+	projectile_node.reparent.call_deferred(projectile_base_node)
+
+	projectile_node.base_node = projectile_base_node
+
+	# projectile_node.set("position", projectile_node.global_position - global_position)
+
+	# if visuals_flipped:
+
+	# 	flip_projectile_visual.call_deferred(projectile_node, visuals_flipped)
+
+
+
 
 
 

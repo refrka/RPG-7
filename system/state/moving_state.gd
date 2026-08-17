@@ -5,6 +5,15 @@ class_name MovingState extends State
 
 
 
+func _enter() -> void:
+
+	super()
+
+
+
+
+
+
 
 
 func _connect_signals() -> void:

@@ -30,6 +30,8 @@ class_name DebugRoot extends UIElement
 
 @export var body_moving_state_label: Label
 
+@export var body_flinch_state_label: Label
+
 
 
 func _ready() -> void:
@@ -95,6 +97,8 @@ func _update_player_playback_state() -> void:
 
 	body_moving_state_label.add_theme_color_override("font_color", Color("#6a6a6a"))
 
+	body_flinch_state_label.add_theme_color_override("font_color", Color("#6a6a6a"))
+
 	var animation_component = Game.player.get_component(AnimationComponent)
 
 	var current_root_node = animation_component.get_playback_current_node("root")
@@ -133,6 +137,8 @@ func _update_player_playback_state() -> void:
 
 	var current_body_node = animation_component.get_playback_current_node("body")
 
+	print("current body node: ", current_body_node)
+
 	match current_body_node:
 
 		"IdleBlend":
@@ -142,6 +148,10 @@ func _update_player_playback_state() -> void:
 		"MovingBlend":
 
 			body_moving_state_label.remove_theme_color_override("font_color")
+
+		"FlinchBlend":
+
+			body_flinch_state_label.remove_theme_color_override("font_color")
 
 
 

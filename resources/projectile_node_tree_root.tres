@@ -1,0 +1,4 @@
+[gd_resource type="AnimationNodeBlendTree" format=3 uid="uid://cst6rtojs6d4f"]
+
+[resource]
+nodes/output/position = Vector2(822.2222, 200)
