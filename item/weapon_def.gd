@@ -4,4 +4,4 @@ class_name WeaponDef extends EquipmentDef
 
 @export var default_attack_config: AttackConfig
 
-@export var ranged_fire_charge_duration:= 0.0
+@export var projectile_speed:= 0.0

@@ -27,6 +27,13 @@ func initialize() -> void:
 
 
 
+func equip_weapon(weapon_data: WeaponData) -> void:
+
+	weapon_slot.set_data(weapon_data)
+
+
+
+
 func _resize() -> void:
 
 	while slots.size() > size:

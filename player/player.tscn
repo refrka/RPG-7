@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://konu4y0v47mt" path="res://player/player.gd" id="2_qjkh3"]
 [ext_resource type="Texture2D" uid="uid://bhhlvkh1yf1wo" path="res://player/player_sprite_sheet.png" id="2_yw30f"]
 [ext_resource type="Resource" uid="uid://vignwuajy4j1" path="res://player/player_def.tres" id="3_qjkh3"]
+[ext_resource type="Texture2D" uid="uid://g6h44dbhrxtm" path="res://item/equipment/weapons/ranged/short_bow_charge_0.png" id="6_g6k8r"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ptr2"]
 radius = 6.0
@@ -318,7 +319,7 @@ _data = {
 
 [sub_resource type="Animation" id="Animation_ebec5"]
 resource_name = "attack_0"
-length = 0.15
+length = 0.009999999999999998
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -326,12 +327,64 @@ tracks/0/path = NodePath("ComponentRoot/CombatComponent")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"values": []
+"times": PackedFloat32Array(0.0014062715),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_fire_projectile"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_yllr7"]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VisualRoot/CombatVisualRoot/CombatSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0068521877),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_g6k8r")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VisualRoot/CombatVisualRoot/CombatSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.005229552, 0.21671315, 0.46930352),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VisualRoot/CombatVisualRoot/CombatSprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0019471503),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CombatRoot/CombatSpriteRemote:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(16, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kb6p2"]
 _data = {
@@ -537,6 +590,20 @@ states/MovingBlend/node = SubResource("AnimationNodeBlendSpace2D_qjkh3")
 states/MovingBlend/position = Vector2(400.04938, 275.33334)
 transitions = ["Start", "IdleBlend", SubResource("AnimationNodeStateMachineTransition_dr47l"), "IdleBlend", "FlinchBlend", SubResource("AnimationNodeStateMachineTransition_u0le3"), "FlinchBlend", "IdleBlend", SubResource("AnimationNodeStateMachineTransition_6l0j2"), "IdleBlend", "MovingBlend", SubResource("AnimationNodeStateMachineTransition_g6k8r"), "MovingBlend", "IdleBlend", SubResource("AnimationNodeStateMachineTransition_boad6"), "MovingBlend", "FlinchBlend", SubResource("AnimationNodeStateMachineTransition_rgyib")]
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_s7qer"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g4c7l"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_knn7v"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_g6k8r"]
+states/ChargeAnimation/node = SubResource("AnimationNodeAnimation_s7qer")
+states/ChargeAnimation/position = Vector2(409.55554, 100.39506)
+transitions = ["Start", "ChargeAnimation", SubResource("AnimationNodeStateMachineTransition_g4c7l"), "ChargeAnimation", "End", SubResource("AnimationNodeStateMachineTransition_knn7v")]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_b58vy"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cd17g"]
@@ -584,7 +651,17 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cd17g"]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hg6s5"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8t03j"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2ieo8"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_f1ilf"]
+states/ChargeAttackState/node = SubResource("AnimationNodeStateMachine_g6k8r")
+states/ChargeAttackState/position = Vector2(606.8779, 52.000023)
 states/CombatReadyState/node = SubResource("AnimationNodeStateMachine_b58vy")
 states/CombatReadyState/position = Vector2(371.06174, 99.86008)
 states/End/position = Vector2(978.8889, 99.62962)
@@ -592,7 +669,7 @@ states/ExecuteAttackState/node = SubResource("AnimationNodeStateMachine_45417")
 states/ExecuteAttackState/position = Vector2(607, 197)
 states/FinishAttackState/node = SubResource("AnimationNodeStateMachine_41p0v")
 states/FinishAttackState/position = Vector2(371, 197)
-transitions = ["ExecuteAttackState", "FinishAttackState", SubResource("AnimationNodeStateMachineTransition_fwru0"), "FinishAttackState", "CombatReadyState", SubResource("AnimationNodeStateMachineTransition_5h1yr"), "Start", "CombatReadyState", SubResource("AnimationNodeStateMachineTransition_xl1rg"), "CombatReadyState", "ExecuteAttackState", SubResource("AnimationNodeStateMachineTransition_cd17g")]
+transitions = ["ExecuteAttackState", "FinishAttackState", SubResource("AnimationNodeStateMachineTransition_fwru0"), "FinishAttackState", "CombatReadyState", SubResource("AnimationNodeStateMachineTransition_5h1yr"), "Start", "CombatReadyState", SubResource("AnimationNodeStateMachineTransition_xl1rg"), "CombatReadyState", "ExecuteAttackState", SubResource("AnimationNodeStateMachineTransition_cd17g"), "CombatReadyState", "ChargeAttackState", SubResource("AnimationNodeStateMachineTransition_hg6s5"), "ChargeAttackState", "ExecuteAttackState", SubResource("AnimationNodeStateMachineTransition_8t03j"), "ChargeAttackState", "CombatReadyState", SubResource("AnimationNodeStateMachineTransition_2ieo8")]
 graph_offset = Vector2(12, -40)
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_5hcb3"]
@@ -666,6 +743,7 @@ libraries/player = SubResource("AnimationLibrary_qjkh3")
 libraries/short_bow = SubResource("AnimationLibrary_kb6p2")
 
 [node name="AnimationTree" parent="." index="8" unique_id=2145901673]
+active = false
 tree_root = SubResource("AnimationNodeBlendTree_qjkh3")
 parameters/BodyState/IdleBlend/blend_position = Vector2(-0.99543136, 0.014858127)
 

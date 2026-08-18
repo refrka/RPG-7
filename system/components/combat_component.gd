@@ -32,6 +32,7 @@ var buffer_enabled:= false
 
 var attack_animation_node: AnimationNodeAnimation
 
+var charge_animation_node: AnimationNodeAnimation
 
 
 
@@ -39,6 +40,8 @@ var attack_animation_node: AnimationNodeAnimation
 func _initialize(_entity: EntityNode) -> void:
 
 	super(_entity)
+
+	entity.inventory.weapon_slot.slot_updated.connect(_on_weapon_slot_updated)
 
 	combat_hitbox = entity.combat_hitbox
 
@@ -56,7 +59,9 @@ func _initialize(_entity: EntityNode) -> void:
 
 	attack_animation_node = animation_component.get_attack_animation_node()
 
-	_load_initial_attack_config()
+	charge_animation_node = animation_component.get_charge_animation_node()
+
+	_load_weapon_config()
 
 
 
@@ -125,7 +130,15 @@ func _try_attack() -> void:
 
 	if _is_attack_index_valid(current_attack_index):
 
-		_start_attack()
+		var attack_entry = get_attack_entry()
+
+		if attack_entry.charge_duration > 0.0:
+
+			_start_charge()
+
+		else:
+
+			_start_attack()
 
 
 
@@ -146,13 +159,17 @@ func _start_attack() -> void:
 
 func _start_charge() -> void:
 
-	pass
+	current_animation_name = _get_charge_animation_name()
+
+	charge_animation_node.animation = current_animation_name
+
+	entity.state_machine.request_state(CombatChargeState)
 
 
 
 func _cancel_charge() -> void:
 
-	pass
+	entity.state_machine.request_state(CombatReadyState)
 
 
 
@@ -221,9 +238,33 @@ func _deliver_hit(target_entity: EntityNode) -> void:
 
 
 
+func _fire_projectile() -> void:
+
+	var weapon_data = entity.inventory.weapon_slot.item_data
+
+	var weapon_def = weapon_data.get_item_def()
+
+	var ammunition_data = weapon_data.ammunition_slot.item_data
+
+	var projectile_def = ammunition_data.get_item_def()
+
+	var projectile_node = ProjectileNode.new_projectile(projectile_def)
+
+	projectile_node.set_trajectory(current_attack_dir, weapon_def.projectile_speed)
+
+	projectile_node.source_entity = entity
+
+	var location = Game.get_location()
+
+	location.add_entity_node(projectile_node, combat_root.global_position)
+
+	projectile_node._activate()
 
 
-func _load_initial_attack_config() -> void:
+
+
+
+func _load_weapon_config() -> void:
 
 	var equipment_slot = entity.inventory.weapon_slot
 
@@ -257,6 +298,11 @@ func _is_attacking() -> bool:
 	return entity.state_machine.get_current_state() is CombatAttackingState
 
 
+func _is_charging() -> bool:
+
+	return entity.state_machine.get_current_state() is CombatChargeState
+
+
 
 func _is_in_combat() -> bool:
 
@@ -287,6 +333,12 @@ func _is_attack_index_valid(index: int) -> bool:
 func _get_attack_animation_name() -> String:
 
 	return "%s/attack_%s" % [current_library_name, current_attack_index]
+
+
+func _get_charge_animation_name() -> String:
+
+	return "%s/charge_%s" % [current_library_name, current_attack_index]
+
 
 
 
@@ -330,6 +382,16 @@ func _handle_weapon_attack_input(pressed: bool) -> void:
 
 				buffered = true
 
+	else:
+
+		if _is_charging():
+
+			_cancel_charge()
+
+
+
+
+
 
 
 
@@ -366,6 +428,11 @@ func _on_hit_detected(hit_entity: EntityNode) -> void:
 	_deliver_hit(hit_entity)
 
 
+
+
+func _on_weapon_slot_updated() -> void:
+
+	_load_weapon_config()
 
 
 

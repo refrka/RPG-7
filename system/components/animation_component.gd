@@ -122,6 +122,24 @@ func get_attack_animation_node() -> AnimationNodeAnimation:
 
 
 
+func get_charge_animation_node() -> AnimationNodeAnimation:
+
+	var tree_root = anim_tree.tree_root
+
+	var root_state = tree_root.get_node("RootState")
+
+	var combat_state = root_state.get_node("CombatState")
+
+	var charge_attack_state = combat_state.get_node("ChargeAttackState")
+
+	var charge_animation = charge_attack_state.get_node("ChargeAnimation")
+
+	return charge_animation
+
+
+
+
+
 
 
 func _get_playback(playback_name: String) -> AnimationNodeStateMachinePlayback:

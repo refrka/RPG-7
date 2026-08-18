@@ -1,6 +1,9 @@
 class_name ItemSlot extends Resource
 
 
+signal slot_updated
+
+
 @export var item_data: ItemData
 
 
@@ -15,6 +18,16 @@ class_name ItemSlot extends Resource
 
 
 
+
+
+
+func set_data(_item_data: ItemData) -> void:
+
+	item_data = _item_data
+
+	slot_updated.emit()
+
+	
 
 
 
