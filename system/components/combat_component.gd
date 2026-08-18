@@ -306,8 +306,6 @@ func _set_attack_dir() -> void:
 
 	combat_root.rotation = current_attack_dir.angle()
 
-	print("setting attack dir: ", current_attack_dir)
-
 	movement_component.set_face_dir(current_attack_dir)
 
 	
@@ -390,6 +388,6 @@ func _deactivate() -> void:
 
 	super()
 
-	if combat_hitbox:
+	if combat_hitbox and combat_hitbox.hit_detected.is_connected(_on_hit_detected):
 
 		combat_hitbox.hit_detected.disconnect(_on_hit_detected)

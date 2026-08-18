@@ -60,6 +60,8 @@ func start() -> void:
 
 	location.add_entity_node(player, spawn_point_pos)
 
+	location._activate.call_deferred()
+
 	_change_state(GameState.ACTIVE)
 
 	Events.fire(GameStartedEvent)

@@ -1,15 +1,11 @@
 [gd_scene format=3 uid="uid://drg5rtjr63qs0"]
 
 [ext_resource type="PackedScene" uid="uid://d25shj3da4uck" path="res://entity/turret_node.tscn" id="1_cdgia"]
+[ext_resource type="Resource" uid="uid://djnmcqx444oak" path="res://entity/objects/turrets/turret_tower_def.tres" id="2_73l7q"]
 [ext_resource type="Texture2D" uid="uid://djp6c5s1eh0ot" path="res://entity/objects/turrets/turret_tower_sprite.png" id="2_fixcq"]
-[ext_resource type="Script" uid="uid://bcuhppit01mrv" path="res://entity/object_def.gd" id="2_lyvgt"]
 [ext_resource type="Resource" uid="uid://du886dcyfkh3d" path="res://item/equipment/ammunition/turret_tower_projectile_def.tres" id="4_lyvgt"]
-
-[sub_resource type="Resource" id="Resource_cdgia"]
-script = ExtResource("2_lyvgt")
-entity_id = &"turret_tower"
-display_name = &"Turret tower"
-metadata/_custom_type_script = "uid://bcuhppit01mrv"
+[ext_resource type="Script" uid="uid://bjmo1qya8gr17" path="res://entity/entity_def.gd" id="4_np6dc"]
+[ext_resource type="Script" uid="uid://d0sohnkvna58e" path="res://entity/objects/turrets/turret_config.gd" id="5_73l7q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fixcq"]
 size = Vector2(24, 8)
@@ -26,10 +22,17 @@ size = Vector2(24, 8)
 [sub_resource type="CircleShape2D" id="CircleShape2D_mfd54"]
 radius = 256.12497
 
+[sub_resource type="Resource" id="Resource_wd1uf"]
+script = ExtResource("5_73l7q")
+turret_mode = 3
+projectile_def = ExtResource("4_lyvgt")
+firing_rate = 1.0
+metadata/_custom_type_script = "uid://d0sohnkvna58e"
+
 [node name="TurretTower" unique_id=1185277528 instance=ExtResource("1_cdgia")]
 collision_layer = 1
 collision_mask = 1
-entity_def = SubResource("Resource_cdgia")
+entity_def = ExtResource("2_73l7q")
 
 [node name="BodySprite" parent="VisualRoot" parent_id_path=PackedInt32Array(864377662) index="0" unique_id=871109114]
 position = Vector2(0, -18)
@@ -53,7 +56,10 @@ position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_np6dc")
 debug_color = Color(0.71, 0, 0.1775, 0.078431375)
 
-[node name="CollisionShape2D" parent="VisionSensor" parent_id_path=PackedInt32Array(942755490) index="0" unique_id=144612384]
+[node name="VisionSensor" parent="." index="3" unique_id=942755490]
+ignore_entity_defs = Array[ExtResource("4_np6dc")]([ExtResource("2_73l7q")])
+
+[node name="CollisionShape2D" parent="VisionSensor" index="0" unique_id=144612384]
 shape = SubResource("CircleShape2D_mfd54")
 
 [node name="TurretOriginNode" parent="." index="4" unique_id=1445454600]
@@ -64,7 +70,6 @@ anim_player = NodePath("../../AnimationPlayer")
 anim_tree = NodePath("../../AnimationTree")
 
 [node name="TurretComponent" parent="ComponentRoot" parent_id_path=PackedInt32Array(1325195692) index="1" unique_id=841611543]
-projectile_def = ExtResource("4_lyvgt")
-projectile_speed = 600.0
+turret_config = SubResource("Resource_wd1uf")
 
 [editable path="BodyHurtbox"]

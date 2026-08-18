@@ -137,8 +137,6 @@ func _update_player_playback_state() -> void:
 
 	var current_body_node = animation_component.get_playback_current_node("body")
 
-	print("current body node: ", current_body_node)
-
 	match current_body_node:
 
 		"IdleBlend":

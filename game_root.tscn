@@ -19,7 +19,6 @@ script = ExtResource("1_xj5yv")
 script = ExtResource("3_lkrbl")
 
 [node name="HUDCanvas" type="CanvasLayer" parent="." unique_id=239936889]
-visible = false
 
 [node name="PlayerHUD" type="Control" parent="HUDCanvas" unique_id=1382649591]
 layout_mode = 3
@@ -49,10 +48,11 @@ layout_mode = 2
 size_flags_horizontal = 8
 
 [node name="GameMenuCanvas" type="CanvasLayer" parent="." unique_id=813117120]
-visible = false
 
 [node name="GameMenu" parent="GameMenuCanvas" unique_id=461689470 instance=ExtResource("4_wd1uf")]
 
 [node name="DebugCanvas" type="CanvasLayer" parent="." unique_id=80885326]
 
 [node name="DebugRoot" parent="DebugCanvas" unique_id=75508425 instance=ExtResource("5_wd1uf")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1740755055]

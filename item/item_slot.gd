@@ -1,4 +1,4 @@
-class_name InventorySlot extends Resource
+class_name ItemSlot extends Resource
 
 
 @export var item_data: ItemData

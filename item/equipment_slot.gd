@@ -1,4 +1,4 @@
-class_name EquipmentSlot extends InventorySlot
+class_name EquipmentSlot extends ItemSlot
 
 
 

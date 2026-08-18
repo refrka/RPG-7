@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="WeaponDef" format=3 uid="uid://cq4mppcjxa8n0"]
+
+[ext_resource type="Script" uid="uid://dpo3me576rhh6" path="res://system/combat/attack_entry.gd" id="1_ndcbj"]
+[ext_resource type="Script" uid="uid://8y6eel0jfvp1" path="res://item/weapon_def.gd" id="1_wc640"]
+[ext_resource type="Script" uid="uid://u5l1ivlmb3li" path="res://system/combat/attack_config.gd" id="2_yo1hi"]
+
+[sub_resource type="Resource" id="Resource_ndcbj"]
+script = ExtResource("1_ndcbj")
+lunge_factor = 0.0
+metadata/_custom_type_script = "uid://dpo3me576rhh6"
+
+[sub_resource type="Resource" id="Resource_tocdt"]
+script = ExtResource("2_yo1hi")
+attack_set = Array[ExtResource("1_ndcbj")]([SubResource("Resource_ndcbj")])
+metadata/_custom_type_script = "uid://u5l1ivlmb3li"
+
+[resource]
+script = ExtResource("1_wc640")
+default_attack_config = SubResource("Resource_tocdt")
+item_id = &"short_bow"
+display_name = &"Short bow"
+metadata/_custom_type_script = "uid://8y6eel0jfvp1"

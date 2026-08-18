@@ -7,8 +7,12 @@
 [node name="TurretNode" unique_id=1185277528 node_paths=PackedStringArray("vision_sensor") instance=ExtResource("1_nss8x")]
 vision_sensor = NodePath("VisionSensor")
 
-[node name="VisionSensor" type="Area2D" parent="." index="3" unique_id=942755490]
+[node name="BodyHurtbox" parent="." index="2" unique_id=47728303]
+ignore_entity_defs = null
+
+[node name="VisionSensor" type="Area2D" parent="." index="3" unique_id=942755490 node_paths=PackedStringArray("collision_shape")]
 script = ExtResource("2_mfd54")
+collision_shape = NodePath("CollisionShape2D")
 metadata/_custom_type_script = "uid://beq8s2yux5k74"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VisionSensor" index="0" unique_id=144612384]

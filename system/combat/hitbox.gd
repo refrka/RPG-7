@@ -6,8 +6,6 @@ signal hit_detected(entity_node: EntityNode)
 
 
 
-@export var collision_shape: CollisionShape2D
-
 
 var hit_list: Array[Hurtbox]
 

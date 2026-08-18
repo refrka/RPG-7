@@ -2,7 +2,7 @@
 
 [sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_d4lem"]
 filter_enabled = true
-filters = [".", "ComponentRoot/CombatComponent", "VisualRoot/BodySprite:frame"]
+filters = [".", "ComponentRoot/CombatComponent", "VisualRoot/BodySprite:frame", "VisualRoot/BodySprite:modulate"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w1xyq"]
 animation = &"player/flinch_down_right"
@@ -215,7 +215,6 @@ states/Start/position = Vector2(147, 100)
 transitions = ["Start", "DefaultState", SubResource("AnimationNodeStateMachineTransition_f1ilf"), "DefaultState", "CombatState", SubResource("AnimationNodeStateMachineTransition_4ec8r"), "CombatState", "DefaultState", SubResource("AnimationNodeStateMachineTransition_kx6kr")]
 
 [resource]
-graph_offset = Vector2(-194.43028, 166.02788)
 nodes/output/position = Vector2(680, 180)
 nodes/RootState/node = SubResource("AnimationNodeStateMachine_d4lem")
 nodes/RootState/position = Vector2(155.55556, 177.77779)

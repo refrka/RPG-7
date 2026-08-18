@@ -76,6 +76,10 @@ func start_playback(playback_name: String, node_name: String) -> void:
 
 	var playback = _get_playback(playback_name)
 
+	if !playback:
+
+		return
+
 	playback.start(node_name)
 
 

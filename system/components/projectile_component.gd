@@ -64,5 +64,5 @@ func _on_move_ended() -> void:
 
 	await Game.get_timer(2.5).timeout
 
-	# entity.queue_free.call_deferred()
+	entity.base_node.queue_free.call_deferred()
 

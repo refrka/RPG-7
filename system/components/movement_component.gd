@@ -142,7 +142,7 @@ func is_moving() -> bool:
 
 		return true
 
-	return current_move_velocity != Vector2.ZERO
+	return false
 
 
 
@@ -199,7 +199,7 @@ func _physics_process(delta: float) -> void:
 
 	if can_move:
 
-		if current_move_velocity == Vector2.ZERO and current_input_velocity != Vector2.ZERO:
+		if current_input_velocity != Vector2.ZERO:
 
 			move_started.emit()
 		

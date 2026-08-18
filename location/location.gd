@@ -60,21 +60,13 @@ func add_entity_node(entity_node: EntityNode, target_pos: Vector2) -> void:
 
 		entity_node.get_parent().remove_child(entity_node)
 
-	_add_entity_to_root(entity_node)
-
 	entity_node.global_position = target_pos
+
+	_add_entity_to_root(entity_node)
 
 	if !entity_node.initialized:
 
 		entity_node._initialize()
-
-	if active:
-
-		entity_node._activate()
-
-	else:
-
-		entity_node._deactivate()
 
 
 
@@ -146,6 +138,8 @@ func get_all_entity_nodes() -> Array[EntityNode]:
 
 func _add_entity_to_root(entity_node: EntityNode) -> void:
 
+	entity_node._deactivate()
+
 	var root: Node2D = null
 
 	if entity_node is CharacterNode:
@@ -179,6 +173,10 @@ func _activate() -> void:
 
 		entity_node._activate()
 
+	for object_node in get_all_object_nodes():
+
+		object_node._activate()
+
 
 
 
@@ -191,3 +189,7 @@ func _deactivate() -> void:
 	for entity_node in get_all_entity_nodes():
 
 		entity_node._deactivate()
+
+	for object_node in get_all_object_nodes():
+
+		object_node._deactivate()

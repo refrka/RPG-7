@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://kydiid5bdgvk" path="res://system/components/health_component.gd" id="4_81hc7"]
 [ext_resource type="Script" uid="uid://vhbxuxsy7lew" path="res://system/state/state_machine.gd" id="4_s5vqo"]
 
-[node name="ObjectNode" type="StaticBody2D" unique_id=1185277528 node_paths=PackedStringArray("body_sprite", "body_collision", "body_hurtbox", "component_root", "state_machine")]
+[node name="ObjectNode" type="StaticBody2D" unique_id=1185277528 node_paths=PackedStringArray("body_sprite", "body_collision", "body_hurtbox", "component_root", "state_machine", "temp_visual_root")]
 y_sort_enabled = true
 collision_layer = 2
 collision_mask = 0
@@ -16,11 +16,14 @@ body_collision = NodePath("BodyCollision")
 body_hurtbox = NodePath("BodyHurtbox")
 component_root = NodePath("ComponentRoot")
 state_machine = NodePath("StateMachine")
+temp_visual_root = NodePath("VisualRoot/TempVisualRoot")
 
 [node name="VisualRoot" type="Node2D" parent="." unique_id=864377662]
 y_sort_enabled = true
 
 [node name="BodySprite" type="Sprite2D" parent="VisualRoot" unique_id=871109114]
+
+[node name="TempVisualRoot" type="Node2D" parent="VisualRoot" unique_id=1160976364]
 
 [node name="BodyCollision" type="CollisionShape2D" parent="." unique_id=708536288]
 

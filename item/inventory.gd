@@ -3,7 +3,7 @@ class_name Inventory extends Resource
 
 
 
-@export var slots: Array[InventorySlot]
+@export var slots: Array[ItemSlot]
 
 @export var size:= 9
 
@@ -35,4 +35,4 @@ func _resize() -> void:
 
 	while slots.size() < size:
 
-		slots.append(InventorySlot.new())
+		slots.append(ItemSlot.new())

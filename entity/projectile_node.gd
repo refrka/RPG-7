@@ -28,6 +28,8 @@ func set_trajectory(dir: Vector2, speed: float) -> void:
 
 	movement_component.move_speed_override = speed
 
+	rotation = dir.angle()
+
 
 
 
@@ -67,6 +69,8 @@ func flip_visuals(state: bool, y_dir: int) -> void:
 	visuals_flipped = state
 
 	position.x *= -1.0
+
+	rotation = -rotation
 
 
 

@@ -10,6 +10,8 @@ enum TurretMode {
 
 	MOVING,
 
+	PROXIMITY,
+
 }
 
 
@@ -24,8 +26,15 @@ enum TargetMode {
 }
 
 
-var turret_mode: TurretMode
+@export var turret_mode: TurretMode
 
-var target_mode: TargetMode
+@export var target_mode: TargetMode
+
+@export var projectile_def: ProjectileDef
+
+@export var projectile_speed:= 500.0
 
 
+@export var firing_rate:= 0.0
+
+@export var initial_firing_delay:= 0.0

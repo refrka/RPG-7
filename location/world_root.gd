@@ -28,8 +28,6 @@ func load_location(location: Location) -> void:
 
 	location._initialize()
 
-	location._activate()
-
 
 
 

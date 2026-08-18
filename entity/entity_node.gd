@@ -141,7 +141,7 @@ func flip_visuals(state: bool, y_dir: int) -> void:
 
 			var temp_entity = base_node.get_child(0)
 
-			temp_entity.flip_visuals(state)
+			temp_entity.flip_visuals(state, y_dir)
 
 	if y_dir == -1:
 
@@ -271,6 +271,10 @@ func _activate() -> void:
 
 	if vision_sensor: vision_sensor.activate()
 
+	await get_tree().process_frame
+
+	body_collision.disabled = false
+
 
 
 
@@ -297,3 +301,5 @@ func _deactivate() -> void:
 	if combat_hitbox: combat_hitbox.deactivate()
 
 	if vision_sensor: vision_sensor.deactivate()
+
+	body_collision.disabled = true

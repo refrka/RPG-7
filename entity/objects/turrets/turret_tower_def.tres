@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ObjectDef" format=3 uid="uid://djnmcqx444oak"]
+
+[ext_resource type="Script" uid="uid://bcuhppit01mrv" path="res://entity/object_def.gd" id="1_lo30d"]
+
+[resource]
+script = ExtResource("1_lo30d")
+entity_id = &"turret_tower"
+display_name = &"Turret tower"
+metadata/_custom_type_script = "uid://bcuhppit01mrv"

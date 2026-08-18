@@ -58,6 +58,25 @@ func _deactivate() -> void:
 
 
 
+func _on_1_pressed() -> void:
+
+	pass
+
+
+func _on_2_pressed() -> void:
+
+	pass
+
+
+func _on_3_pressed() -> void:
+
+	pass
+
+
+
+
+
+
 func _unhandled_input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("debug"):
@@ -69,3 +88,16 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 
 			_activate()
+
+
+	if event.is_action_pressed("1"):
+
+		_on_1_pressed()
+
+	if event.is_action_pressed("2"):
+
+		_on_2_pressed()
+
+	if event.is_action_pressed("3"):
+
+		_on_3_pressed()
